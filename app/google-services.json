@@ -66,6 +66,35 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:1006794351055:android:00c46c54be82220ed072ba",
+        "android_client_info": {
+          "package_name": "com.example.elektronicarebeta1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006794351055-b1dgjvqbpqr09nva4b9dnasisg0ili0k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWs_AAOf4PABG-ZKYuaQ8t4LsvsTg7BJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006794351055-b1dgjvqbpqr09nva4b9dnasisg0ili0k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:1006794351055:android:6028a257f458d02cd072ba",
         "android_client_info": {
           "package_name": "com.example.imageview"

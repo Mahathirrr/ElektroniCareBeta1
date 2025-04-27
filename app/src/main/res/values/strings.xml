@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">ElektroniCare</string>
+    <string name="logo_desc">Elektronicare</string>
     <string name="repair_tracking">Repair Tracking</string>
     <string name="categories">Categories</string>
     <string name="home">Home</string>

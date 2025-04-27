@@ -10,15 +10,48 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        tools:targetApi="31" />
+        android:theme="@style/AppTheme">
+
+        <!-- Splash Activity - Launch/Entry Point -->
         <activity
             android:name=".SplashActivity"
+            android:exported="true"
             android:theme="@style/AppTheme"
-            android:exported="true">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Onboarding Activity -->
+        <activity
+            android:name=".OnboardingActivity"
+            android:exported="false"
+             />
+
+        <!-- Welcome Activity -->
+        <activity
+            android:name=".WelcomeActivity"
+            android:exported="false"
+             />
+
+        <!-- Authentication Activities -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+<!--        <activity-->
+<!--            android:name=".NotificationActivity"-->
+<!--            android:exported="false"-->
+<!--            android:screenOrientation="portrait" />-->
+
+    </application>
 
 </manifest>

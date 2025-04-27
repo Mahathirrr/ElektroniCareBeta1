@@ -10,8 +10,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Status Bar Simulation -->
-
     <ScrollView
         android:clipChildren="false"
         android:clipToPadding="false"
@@ -70,14 +68,16 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/welcome_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Welcome back, Alex!"
+                                android:text="Welcome back!"
                                 android:textColor="#EDE9FE"
                                 android:textSize="14sp" />
                         </LinearLayout>
 
                         <ImageView
+                            android:id="@+id/notification_icon"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:layout_marginEnd="16dp"
@@ -86,6 +86,7 @@
                             android:tint="#FFFFFF" />
 
                         <ImageView
+                            android:id="@+id/profile_icon"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:layout_gravity="center_vertical"
@@ -231,10 +232,13 @@
                     android:textStyle="bold"/>
 
                 <LinearLayout
+                    android:id="@+id/view_all_recent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <ImageView
                         android:layout_width="14dp"
@@ -255,6 +259,7 @@
 
             <!-- iPhone Repair Card -->
             <LinearLayout
+                android:id="@+id/repair_card_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -262,7 +267,9 @@
                 android:background="@drawable/rounded_card"
                 android:elevation="2dp"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -374,6 +381,7 @@
 
             <!-- MacBook Repair Card -->
             <LinearLayout
+                android:id="@+id/repair_card_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -381,7 +389,9 @@
                 android:background="@drawable/rounded_card"
                 android:elevation="2dp"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -425,7 +435,7 @@
                     <ImageView
                         android:layout_width="14dp"
                         android:layout_height="14dp"
-                        android:src="@drawable/ic_calendar"
+                        android:src="@drawable/ic_calender"
                         android:tint="#4B5563"
                         android:layout_marginEnd="8dp"/>
 
@@ -447,7 +457,7 @@
                     <ImageView
                         android:layout_width="14dp"
                         android:layout_height="14dp"
-                        android:src="@drawable/ic_location"
+                        android:src="@drawable/ic_location_pin"
                         android:tint="#4B5563"
                         android:layout_marginEnd="8dp"/>
 
@@ -491,78 +501,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Notifications Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginHorizontal="22dp"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Notifications"
-                    android:textColor="#111827"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="View All"
-                    android:textColor="#7C3AED"
-                    android:textSize="14sp"
-                    android:textStyle="bold"/>
-            </LinearLayout>
-
-            <!-- Notification Card -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="60dp"
-                android:background="@drawable/rounded_card"
-                android:elevation="2dp"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_parts"
-                    android:layout_marginEnd="12dp"/>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Repair Status Update"
-                        android:textColor="#1F2937"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="4dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Your iPhone 13 screen replacement is now complete"
-                        android:textColor="#4B5563"
-                        android:textSize="13sp"/>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="6dp"
-                    android:layout_height="6dp"
-                    android:background="@drawable/notification_dot"
-                    android:layout_gravity="top"/>
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
@@ -576,11 +514,14 @@
         android:paddingVertical="12dp">
 
         <LinearLayout
+            android:id="@+id/nav_home"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
 
             <ImageView
                 android:layout_width="24dp"
@@ -598,11 +539,14 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/nav_history"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
 
             <ImageView
                 android:layout_width="24dp"
@@ -620,11 +564,14 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/nav_services"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
 
             <ImageView
                 android:layout_width="24dp"
@@ -642,11 +589,14 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/nav_profile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
 
             <ImageView
                 android:layout_width="24dp"
