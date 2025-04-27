@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -24,10 +25,25 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var googleSignInClient: GoogleSignInClient
     private var isPasswordVisible = false
-    private val RC_SIGN_IN = 9001
 
     // Indonesian phone number regex pattern
     private val indonesianPhonePattern = Pattern.compile("^(\\+62|62|0)8[1-9][0-9]{6,9}$")
+
+    private val googleSignInLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                account?.let {
+                    firebaseAuthWithGoogle(it.idToken!!)
+                }
+            } catch (e: ApiException) {
+                showError("Google sign in failed: ${e.message}")
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +60,10 @@ class RegisterActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
+        setupViews()
+    }
+
+    private fun setupViews() {
         val fullNameEdit = findViewById<EditText>(R.id.edit_full_name)
         val mobileEdit = findViewById<EditText>(R.id.edit_mobile)
         val emailEdit = findViewById<EditText>(R.id.edit_email)
@@ -101,21 +121,21 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun validateInputs(fullName: String, mobile: String, email: String, password: String): Boolean {
+    public fun validateInputs(fullName: String, mobile: String, email: String, password: String): Boolean {
         if (fullName.isEmpty()) {
-            showError("Mohon masukkan nama lengkap Anda")
+            showError("Please enter your full name")
             return false
         }
         if (!isValidIndonesianPhoneNumber(mobile)) {
-            showError("Mohon masukkan nomor telepon yang valid")
+            showError("Please enter a valid phone number")
             return false
         }
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            showError("Mohon masukkan alamat email yang valid")
+            showError("Please enter a valid email address")
             return false
         }
         if (password.isEmpty() || password.length < 6) {
-            showError("Password minimal 6 karakter")
+            showError("Password must be at least 6 characters")
             return false
         }
         return true
@@ -125,7 +145,7 @@ class RegisterActivity : AppCompatActivity() {
         return indonesianPhonePattern.matcher(phone).matches()
     }
 
-    private fun formatIndonesianPhoneNumber(number: String): String {
+    public fun formatIndonesianPhoneNumber(number: String): String {
         var formatted = number.replace("[^0-9]".toRegex(), "")
 
         // Convert all possible prefixes to standard format
@@ -161,32 +181,18 @@ class RegisterActivity : AppCompatActivity() {
                                 finish()
                             }
                             .addOnFailureListener { e ->
-                                showError("Error menyimpan data: ${e.message}")
+                                showError("Error saving data: ${e.message}")
                             }
                     }
                 } else {
-                    showError("Registrasi gagal: ${task.exception?.message}")
+                    showError("Registration failed: ${task.exception?.message}")
                 }
             }
     }
 
     private fun signInWithGoogle() {
         val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)!!
-                firebaseAuthWithGoogle(account.idToken!!)
-            } catch (e: ApiException) {
-                showError("Google sign in failed: ${e.message}")
-            }
-        }
+        googleSignInLauncher.launch(signInIntent)
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
