@@ -44,9 +44,18 @@ dependencies {
     implementation(libs.androidx.foundation.android)
     implementation(libs.androidx.material3.android)
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+
+    // Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
+
+    // Add this Google Sign-In dependency
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+    // Add this for the ActivityResultLauncher
+    implementation("androidx.activity:activity-ktx:1.8.2")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
