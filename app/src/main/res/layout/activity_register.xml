@@ -27,25 +27,26 @@
 				android:id="@+id/back_button"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:gravity="center_vertical"
-				android:orientation="horizontal"
-				android:paddingVertical="8dp"
 				android:clickable="true"
-				android:focusable="true">
+				android:focusable="true"
+				android:gravity="center_vertical"
+				android:minHeight="48dp"
+				android:orientation="horizontal"
+				android:paddingVertical="8dp">
 
 				<ImageView
 					android:layout_width="20dp"
 					android:layout_height="20dp"
 					android:layout_marginEnd="8dp"
-					android:src="@drawable/ic_arrow_left"
-					android:contentDescription="Back arrow" />
+					android:contentDescription="Back arrow"
+					android:src="@drawable/ic_arrow_left" />
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="Back"
-					android:textSize="16sp"
-					android:textColor="#4B5563" />
+					android:textColor="#4B5563"
+					android:textSize="16sp" />
 			</LinearLayout>
 
 			<!-- Logo -->
@@ -109,14 +110,55 @@
 					android:elevation="1dp" />
 
 				<ImageView
-    				android:layout_width="24dp"
-    				android:layout_height="24dp"
-    				android:layout_gravity="start|center_vertical"
-    				android:layout_marginStart="12dp"
-    				android:src="@drawable/ic_person"
-                    android:elevation="2dp"
-                    android:contentDescription="Person icon"
-                    app:tint="#6B7280" />
+					android:layout_width="24dp"
+					android:layout_height="24dp"
+					android:layout_gravity="start|center_vertical"
+					android:layout_marginStart="12dp"
+					android:src="@drawable/ic_person"
+					android:elevation="2dp"
+					android:contentDescription="Person icon"
+					app:tint="#6B7280" />
+			</FrameLayout>
+
+			<!-- Mobile Number Field -->
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Mobile Number"
+				android:textSize="13sp"
+				android:textStyle="bold"
+				android:textColor="#374151"
+				android:layout_marginBottom="8dp" />
+
+			<FrameLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="16dp">
+
+				<EditText
+					android:id="@+id/edit_mobile"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:background="@drawable/edit_text_background"
+					android:hint="Enter your mobile number"
+					android:inputType="phone"
+					android:paddingVertical="16dp"
+					android:paddingStart="48dp"
+					android:paddingEnd="16dp"
+					android:textColor="#1F2937"
+					android:textColorHint="#9CA3AF"
+					android:textSize="15sp"
+					android:elevation="1dp" />
+
+				<ImageView
+					android:layout_width="24dp"
+					android:layout_height="24dp"
+					android:layout_gravity="start|center_vertical"
+					android:layout_marginStart="12dp"
+					android:src="@drawable/ic_phone_outline"
+					android:elevation="2dp"
+					android:contentDescription="Phone icon"
+					app:tint="#6B7280" />
 			</FrameLayout>
 
 			<!-- Email Field -->

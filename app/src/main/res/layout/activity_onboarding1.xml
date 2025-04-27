@@ -1,108 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#FFFFFF"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
 
-    <ScrollView
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:paddingHorizontal="23dp">
+        android:layout_weight="1" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
+    <LinearLayout
+        android:id="@+id/indicatorContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginBottom="30dp" />
 
-            <!-- Centered content in the middle of screen -->
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_background_purple"
+        android:text="Next"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
 
-            <!-- Indicators -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="180dp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+    <Button
+        android:id="@+id/skipButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/button_background_white"
+        android:text="Skip"
+        android:textColor="#7C3AED"
+        android:textSize="16sp" />
 
-                <!-- Phone icon (purple outline) -->
-                <ImageView
-                    android:layout_width="131dp"
-                    android:layout_height="139dp"
-                    android:layout_marginBottom="25dp"
-                    android:src="@drawable/ic_phone_outline"
-                    app:tint="#7E3FF2" />
-
-                <!-- Title -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:text="Phone Repairs"
-                    android:textColor="#1F2937"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
-
-                <!-- Description -->
-                <TextView
-                    android:layout_width="308dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="160dp"
-                    android:gravity="center"
-                    android:text="Expert repairs for all smartphone brands with\ngenuine parts"
-                    android:textColor="#4B5563"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginBottom="30dp"
-                android:orientation="horizontal">
-                <View
-                    android:layout_width="7dp"
-                    android:layout_height="7dp"
-                    android:background="@drawable/circle_bg"
-                    android:layout_marginHorizontal="4dp" />
-                <View
-                    android:layout_width="7dp"
-                    android:layout_height="7dp"
-                    android:background="@drawable/circle_purple_bg"
-                    android:layout_marginHorizontal="4dp" />
-                <View
-                    android:layout_width="7dp"
-                    android:layout_height="7dp"
-                    android:background="@drawable/circle_purple_bg"
-                    android:layout_marginHorizontal="4dp" />
-            </LinearLayout>
-
-            <!-- Next button -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:background="@drawable/purple_rounded_button"
-                android:paddingVertical="14dp"
-                android:layout_marginBottom="30dp"
-                android:elevation="1dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:orientation="horizontal">
-                <TextView
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:textStyle="normal"
-                    android:layout_marginEnd="8dp"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="Next" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
 </LinearLayout>
