@@ -3,11 +3,13 @@ package com.example.elektronicarebeta1
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -208,9 +210,11 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun registerUser(fullName: String, mobile: String, email: String, password: String) {
+        Log.d("RegisterActivity", "Attempting to register user with email: $email")
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    Log.d("RegisterActivity", "User registration successful")
                     val user = auth.currentUser
                     val userData = hashMapOf(
                         "fullName" to fullName,
@@ -219,18 +223,25 @@ class RegisterActivity : AppCompatActivity() {
                     )
 
                     user?.let {
+                        Log.d("RegisterActivity", "Saving user data to Firestore")
                         db.collection("users")
                             .document(it.uid)
                             .set(userData)
                             .addOnSuccessListener {
+                                Log.d("RegisterActivity", "User data saved, navigating to dashboard")
+                                Toast.makeText(this@RegisterActivity, "Registration successful", Toast.LENGTH_SHORT).show()
                                 navigateToDashboard()
                             }
                             .addOnFailureListener { e ->
+                                Log.e("RegisterActivity", "Error saving user data", e)
                                 showError(emailError, "Error saving data")
+                                Toast.makeText(this@RegisterActivity, "Error saving data: ${e.message}", Toast.LENGTH_LONG).show()
                             }
                     }
                 } else {
+                    Log.e("RegisterActivity", "Registration failed", task.exception)
                     showError(emailError, "Registration failed")
+                    Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                 }
             }
     }
@@ -241,10 +252,12 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
+        Log.d("RegisterActivity", "Authenticating with Google")
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    Log.d("RegisterActivity", "Google authentication successful")
                     val user = auth.currentUser
                     user?.let {
                         val userData = hashMapOf(
@@ -253,26 +266,41 @@ class RegisterActivity : AppCompatActivity() {
                             "mobile" to ""
                         )
 
+                        Log.d("RegisterActivity", "Saving Google user data to Firestore")
                         db.collection("users")
                             .document(it.uid)
                             .set(userData)
                             .addOnSuccessListener {
+                                Log.d("RegisterActivity", "Google user data saved, navigating to dashboard")
+                                Toast.makeText(this@RegisterActivity, "Google sign-in successful", Toast.LENGTH_SHORT).show()
                                 navigateToDashboard()
                             }
                             .addOnFailureListener { e ->
+                                Log.e("RegisterActivity", "Error saving Google user data", e)
                                 showError(emailError, "Error saving user data")
+                                Toast.makeText(this@RegisterActivity, "Error saving user data: ${e.message}", Toast.LENGTH_LONG).show()
                             }
                     }
                 } else {
+                    Log.e("RegisterActivity", "Google authentication failed", task.exception)
                     showError(emailError, "Authentication failed")
+                    Toast.makeText(this, "Google authentication failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                 }
             }
     }
 
     private fun navigateToDashboard() {
-        val intent = Intent(this, DashboardActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        startActivity(intent)
-        finish()
+        try {
+            Log.d("RegisterActivity", "Creating intent for DashboardActivity")
+            val intent = Intent(this, DashboardActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            Log.d("RegisterActivity", "Starting DashboardActivity")
+            startActivity(intent)
+            Log.d("RegisterActivity", "Finishing RegisterActivity")
+            finish()
+        } catch (e: Exception) {
+            Log.e("RegisterActivity", "Error navigating to dashboard", e)
+            Toast.makeText(this, "Error navigating to dashboard: ${e.message}", Toast.LENGTH_LONG).show()
+        }
     }
 }
