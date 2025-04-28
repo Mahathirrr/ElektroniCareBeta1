@@ -4,10 +4,12 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
@@ -18,6 +20,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        Log.d("SplashActivity", "onCreate started")
         auth = FirebaseAuth.getInstance()
 
         val logo = findViewById<ImageView>(R.id.logoImageView)
@@ -64,21 +67,47 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun navigateToNextScreen() {
-        val currentUser = auth.currentUser
-        val prefs = getSharedPreferences("ElektroniCare", MODE_PRIVATE)
-        val isFirstLaunch = prefs.getBoolean("isFirstLaunch", true)
+        try {
+            Log.d("SplashActivity", "Navigating to next screen")
+            val currentUser = auth.currentUser
+            val prefs = getSharedPreferences("ElektroniCare", MODE_PRIVATE)
+            val isFirstLaunch = prefs.getBoolean("isFirstLaunch", true)
 
-        val intent = when {
-            currentUser != null -> Intent(this, DashboardActivity::class.java)
-            isFirstLaunch -> {
-                // We'll set the flag to false in OnboardingActivity when it's completed
-                Intent(this, OnboardingActivity::class.java)
+            Log.d("SplashActivity", "Current user: ${currentUser?.email}, isFirstLaunch: $isFirstLaunch")
+
+            val intent = when {
+                currentUser != null -> {
+                    Log.d("SplashActivity", "User is authenticated, navigating to Dashboard")
+                    Intent(this, DashboardActivity::class.java)
+                }
+                isFirstLaunch -> {
+                    Log.d("SplashActivity", "First launch, navigating to Onboarding")
+                    // We'll set the flag to false in OnboardingActivity when it's completed
+                    Intent(this, OnboardingActivity::class.java)
+                }
+                else -> {
+                    Log.d("SplashActivity", "Not first launch, navigating to Welcome")
+                    Intent(this, WelcomeActivity::class.java)
+                }
             }
-            else -> Intent(this, WelcomeActivity::class.java)
-        }
 
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        startActivity(intent)
-        finish()
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            Log.d("SplashActivity", "Starting activity: ${intent.component?.className}")
+            startActivity(intent)
+            finish()
+        } catch (e: Exception) {
+            Log.e("SplashActivity", "Error navigating to next screen", e)
+            Toast.makeText(this, "Error navigating to next screen: ${e.message}", Toast.LENGTH_LONG).show()
+            
+            // Fallback to welcome activity
+            try {
+                val intent = Intent(this, WelcomeActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+                finish()
+            } catch (e2: Exception) {
+                Log.e("SplashActivity", "Fatal error, could not navigate to any screen", e2)
+            }
+        }
     }
 }

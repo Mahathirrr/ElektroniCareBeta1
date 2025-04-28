@@ -40,6 +40,7 @@ class OnboardingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         
         try {
+            Log.d("OnboardingActivity", "Starting onCreate")
             setContentView(R.layout.activity_onboarding1)
             Log.d("OnboardingActivity", "Layout set successfully")
             
@@ -57,13 +58,13 @@ class OnboardingActivity : AppCompatActivity() {
             val prefs = getSharedPreferences("ElektroniCare", MODE_PRIVATE)
             prefs.edit().putBoolean("isFirstLaunch", false).apply()
             
-            startActivity(Intent(this, WelcomeActivity::class.java))
-            finish()
+            navigateToWelcome()
         }
     }
 
     private fun setupViews() {
         try {
+            Log.d("OnboardingActivity", "Finding views")
             viewPager = findViewById(R.id.viewPager)
             indicatorContainer = findViewById(R.id.indicatorContainer)
             nextButton = findViewById(R.id.nextButton)
@@ -77,55 +78,84 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun setupViewPager() {
-        val adapter = OnboardingAdapter(onboardingPages)
-        viewPager.adapter = adapter
-        
-        // Disable user swiping to ensure proper navigation
-        viewPager.isUserInputEnabled = true
-        
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                updateIndicators(position)
-                updateButtonText(position)
-            }
-        })
-
-        // Set up indicators
-        indicatorContainer.removeAllViews() // Clear any existing indicators
-        for (i in onboardingPages.indices) {
-            val indicator = View(this).apply {
-                setBackgroundResource(R.drawable.circle_purple_bg)
-                layoutParams = LinearLayout.LayoutParams(12, 12).apply {
-                    marginStart = 8
-                    marginEnd = 8
+        try {
+            Log.d("OnboardingActivity", "Setting up ViewPager")
+            val adapter = OnboardingAdapter(onboardingPages)
+            viewPager.adapter = adapter
+            
+            // Enable user swiping
+            viewPager.isUserInputEnabled = true
+            
+            viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    Log.d("OnboardingActivity", "Page selected: $position")
+                    updateIndicators(position)
+                    updateButtonText(position)
                 }
+            })
+
+            // Set up indicators
+            indicatorContainer.removeAllViews() // Clear any existing indicators
+            for (i in onboardingPages.indices) {
+                val indicator = View(this).apply {
+                    setBackgroundResource(R.drawable.circle_purple_bg)
+                    layoutParams = LinearLayout.LayoutParams(12, 12).apply {
+                        marginStart = 8
+                        marginEnd = 8
+                    }
+                }
+                indicatorContainer.addView(indicator)
             }
-            indicatorContainer.addView(indicator)
+            updateIndicators(0)
+            Log.d("OnboardingActivity", "ViewPager setup completed")
+        } catch (e: Exception) {
+            Log.e("OnboardingActivity", "Error setting up ViewPager", e)
+            throw e
         }
-        updateIndicators(0)
     }
 
     private fun setupButtons() {
-        nextButton.setOnClickListener {
-            if (viewPager.currentItem < onboardingPages.size - 1) {
-                viewPager.currentItem++
-            } else {
-                // Mark onboarding as completed
+        try {
+            Log.d("OnboardingActivity", "Setting up buttons")
+            nextButton.setOnClickListener {
+                Log.d("OnboardingActivity", "Next button clicked, current item: ${viewPager.currentItem}")
+                if (viewPager.currentItem < onboardingPages.size - 1) {
+                    viewPager.currentItem++
+                } else {
+                    // Mark onboarding as completed
+                    Log.d("OnboardingActivity", "Onboarding completed, navigating to Welcome")
+                    val prefs = getSharedPreferences("ElektroniCare", MODE_PRIVATE)
+                    prefs.edit().putBoolean("isFirstLaunch", false).apply()
+                    
+                    navigateToWelcome()
+                }
+            }
+
+            skipButton.setOnClickListener {
+                Log.d("OnboardingActivity", "Skip button clicked")
+                // Mark onboarding as completed even if skipped
                 val prefs = getSharedPreferences("ElektroniCare", MODE_PRIVATE)
                 prefs.edit().putBoolean("isFirstLaunch", false).apply()
                 
-                startActivity(Intent(this, WelcomeActivity::class.java))
-                finish()
+                navigateToWelcome()
             }
+            Log.d("OnboardingActivity", "Buttons setup completed")
+        } catch (e: Exception) {
+            Log.e("OnboardingActivity", "Error setting up buttons", e)
+            throw e
         }
+    }
 
-        skipButton.setOnClickListener {
-            // Mark onboarding as completed even if skipped
-            val prefs = getSharedPreferences("ElektroniCare", MODE_PRIVATE)
-            prefs.edit().putBoolean("isFirstLaunch", false).apply()
-            
-            startActivity(Intent(this, WelcomeActivity::class.java))
+    private fun navigateToWelcome() {
+        try {
+            Log.d("OnboardingActivity", "Navigating to WelcomeActivity")
+            val intent = Intent(this, WelcomeActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
             finish()
+        } catch (e: Exception) {
+            Log.e("OnboardingActivity", "Error navigating to Welcome", e)
+            Toast.makeText(this, "Error navigating to Welcome: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
 
