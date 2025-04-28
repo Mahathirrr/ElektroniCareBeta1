@@ -27,8 +27,7 @@
         <!-- Onboarding Activity -->
         <activity
             android:name=".OnboardingActivity"
-            android:exported="false"
-             />
+            android:exported="false" />
 
         <!-- Welcome Activity -->
         <activity
@@ -51,6 +50,11 @@
 <!--            android:name=".NotificationActivity"-->
 <!--            android:exported="false"-->
 <!--            android:screenOrientation="portrait" />-->
+
+        <!-- Dashboard Activity -->
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="false" />
 
     </application>
 
