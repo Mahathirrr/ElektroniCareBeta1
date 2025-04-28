@@ -65,22 +65,21 @@ class SplashActivity : AppCompatActivity() {
 
     private fun navigateToNextScreen() {
         val currentUser = auth.currentUser
+        val prefs = getSharedPreferences("ElektroniCare", MODE_PRIVATE)
+        val isFirstLaunch = prefs.getBoolean("isFirstLaunch", true)
+
         val intent = when {
             currentUser != null -> Intent(this, DashboardActivity::class.java)
-            isFirstLaunch() -> Intent(this, OnboardingActivity::class.java)
+            isFirstLaunch -> {
+                // Only update the flag when actually showing onboarding
+                prefs.edit().putBoolean("isFirstLaunch", false).apply()
+                Intent(this, OnboardingActivity::class.java)
+            }
             else -> Intent(this, WelcomeActivity::class.java)
         }
 
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
         finish()
-    }
-
-    private fun isFirstLaunch(): Boolean {
-        val prefs = getSharedPreferences("ElektroniCare", MODE_PRIVATE)
-        val isFirstLaunch = prefs.getBoolean("isFirstLaunch", true)
-        if (isFirstLaunch) {
-            prefs.edit().putBoolean("isFirstLaunch", false).apply()
-        }
-        return isFirstLaunch
     }
 }

@@ -92,7 +92,7 @@
 			<FrameLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginBottom="16dp">
+				android:layout_marginBottom="4dp">
 
 				<EditText
 					android:id="@+id/edit_full_name"
@@ -120,6 +120,16 @@
 					app:tint="#6B7280" />
 			</FrameLayout>
 
+			<TextView
+				android:id="@+id/fullname_error"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="2dp"
+				android:textColor="#DC2626"
+				android:textSize="12sp"
+				android:visibility="gone"
+				android:layout_marginBottom="12dp" />
+
 			<!-- Mobile Number Field -->
 			<TextView
 				android:layout_width="wrap_content"
@@ -133,7 +143,7 @@
 			<FrameLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginBottom="16dp">
+				android:layout_marginBottom="4dp">
 
 				<EditText
 					android:id="@+id/edit_mobile"
@@ -155,11 +165,21 @@
 					android:layout_height="24dp"
 					android:layout_gravity="start|center_vertical"
 					android:layout_marginStart="12dp"
-					android:src="@drawable/ic_phone_outline"
+					android:src="@drawable/ic_phone"
 					android:elevation="2dp"
 					android:contentDescription="Phone icon"
 					app:tint="#6B7280" />
 			</FrameLayout>
+
+			<TextView
+				android:id="@+id/mobile_error"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="2dp"
+				android:textColor="#DC2626"
+				android:textSize="12sp"
+				android:visibility="gone"
+				android:layout_marginBottom="12dp" />
 
 			<!-- Email Field -->
 			<TextView
@@ -174,7 +194,7 @@
 			<FrameLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginBottom="16dp">
+				android:layout_marginBottom="4dp">
 
 				<EditText
 					android:id="@+id/edit_email"
@@ -201,6 +221,16 @@
 					android:contentDescription="Email icon" />
 			</FrameLayout>
 
+			<TextView
+				android:id="@+id/email_error"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="2dp"
+				android:textColor="#DC2626"
+				android:textSize="12sp"
+				android:visibility="gone"
+				android:layout_marginBottom="12dp" />
+
 			<!-- Password Field -->
 			<TextView
 				android:layout_width="wrap_content"
@@ -214,7 +244,7 @@
 			<FrameLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginBottom="24dp">
+				android:layout_marginBottom="8dp">
 
 				<EditText
 					android:id="@+id/edit_password"
@@ -253,6 +283,16 @@
 					android:focusable="true" />
 			</FrameLayout>
 
+			<TextView
+				android:id="@+id/password_error"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textColor="#DC2626"
+				android:textSize="12sp"
+				android:text="Password must be at least 6 characters"
+				android:visibility="gone"
+				android:layout_marginBottom="8dp" />
+
 			<!-- Create Account Button -->
 			<Button
 				android:id="@+id/btn_create_account"
@@ -265,6 +305,7 @@
 				android:textColor="#FFFFFF"
 				android:textAllCaps="false"
 				android:paddingVertical="14dp"
+				android:layout_marginTop="24dp"
 				android:layout_marginBottom="16dp" />
 
 			<!-- Google Sign Up Button -->

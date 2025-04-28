@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -26,7 +25,16 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private var isPasswordVisible = false
 
-    // Indonesian phone number regex pattern
+    private lateinit var fullNameEdit: EditText
+    private lateinit var mobileEdit: EditText
+    private lateinit var emailEdit: EditText
+    private lateinit var passwordEdit: EditText
+
+    private lateinit var fullNameError: TextView
+    private lateinit var mobileError: TextView
+    private lateinit var emailError: TextView
+    private lateinit var passwordError: TextView
+
     private val indonesianPhonePattern = Pattern.compile("^(\\+62|62|0)8[1-9][0-9]{6,9}$")
 
     private val googleSignInLauncher = registerForActivityResult(
@@ -40,7 +48,7 @@ class RegisterActivity : AppCompatActivity() {
                     firebaseAuthWithGoogle(it.idToken!!)
                 }
             } catch (e: ApiException) {
-                showError("Google sign in failed: ${e.message}")
+                showError(emailError, "Google sign in failed")
             }
         }
     }
@@ -52,7 +60,6 @@ class RegisterActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
-        // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -64,24 +71,43 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setupViews() {
-        val fullNameEdit = findViewById<EditText>(R.id.edit_full_name)
-        val mobileEdit = findViewById<EditText>(R.id.edit_mobile)
-        val emailEdit = findViewById<EditText>(R.id.edit_email)
-        val passwordEdit = findViewById<EditText>(R.id.edit_password)
+        fullNameEdit = findViewById(R.id.edit_full_name)
+        mobileEdit = findViewById(R.id.edit_mobile)
+        emailEdit = findViewById(R.id.edit_email)
+        passwordEdit = findViewById(R.id.edit_password)
+
+        fullNameError = findViewById(R.id.fullname_error)
+        mobileError = findViewById(R.id.mobile_error)
+        emailError = findViewById(R.id.email_error)
+        passwordError = findViewById(R.id.password_error)
+
         val createAccountButton = findViewById<Button>(R.id.btn_create_account)
         val togglePasswordVisibility = findViewById<ImageView>(R.id.toggle_password_visibility)
         val backButton = findViewById<View>(R.id.back_button)
         val signInLink = findViewById<TextView>(R.id.link_sign_in)
         val googleSignInButton = findViewById<View>(R.id.btn_google_signin)
 
-        // Format phone number as user types
+        // Clear errors on focus
+        fullNameEdit.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) clearError(fullNameError)
+        }
+
         mobileEdit.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) clearError(mobileError)
             if (!hasFocus) {
                 val number = mobileEdit.text.toString()
                 if (number.isNotEmpty()) {
                     mobileEdit.setText(formatIndonesianPhoneNumber(number))
                 }
             }
+        }
+
+        emailEdit.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) clearError(emailError)
+        }
+
+        passwordEdit.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) clearError(passwordError)
         }
 
         togglePasswordVisibility.setOnClickListener {
@@ -97,6 +123,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         createAccountButton.setOnClickListener {
+            clearAllErrors()
             val fullName = fullNameEdit.text.toString().trim()
             val mobile = mobileEdit.text.toString().trim()
             val email = emailEdit.text.toString().trim()
@@ -121,34 +148,55 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    public fun validateInputs(fullName: String, mobile: String, email: String, password: String): Boolean {
+    private fun validateInputs(fullName: String, mobile: String, email: String, password: String): Boolean {
+        var isValid = true
+
         if (fullName.isEmpty()) {
-            showError("Please enter your full name")
-            return false
+            showError(fullNameError, "Please enter your full name")
+            isValid = false
         }
+
         if (!isValidIndonesianPhoneNumber(mobile)) {
-            showError("Please enter a valid phone number")
-            return false
+            showError(mobileError, "Please enter a valid phone number")
+            isValid = false
         }
+
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            showError("Please enter a valid email address")
-            return false
+            showError(emailError, "Please enter a valid email address")
+            isValid = false
         }
+
         if (password.isEmpty() || password.length < 6) {
-            showError("Password must be at least 6 characters")
-            return false
+            showError(passwordError, "Password must be at least 6 characters")
+            isValid = false
         }
-        return true
+
+        return isValid
+    }
+
+    private fun showError(errorView: TextView, message: String) {
+        errorView.text = message
+        errorView.visibility = View.VISIBLE
+    }
+
+    private fun clearError(errorView: TextView) {
+        errorView.text = ""
+        errorView.visibility = View.GONE
+    }
+
+    private fun clearAllErrors() {
+        clearError(fullNameError)
+        clearError(mobileError)
+        clearError(emailError)
+        clearError(passwordError)
     }
 
     private fun isValidIndonesianPhoneNumber(phone: String): Boolean {
         return indonesianPhonePattern.matcher(phone).matches()
     }
 
-    public fun formatIndonesianPhoneNumber(number: String): String {
+    private fun formatIndonesianPhoneNumber(number: String): String {
         var formatted = number.replace("[^0-9]".toRegex(), "")
-
-        // Convert all possible prefixes to standard format
         if (formatted.startsWith("62")) {
             formatted = "0${formatted.substring(2)}"
         } else if (formatted.startsWith("+62")) {
@@ -156,7 +204,6 @@ class RegisterActivity : AppCompatActivity() {
         } else if (!formatted.startsWith("0")) {
             formatted = "0$formatted"
         }
-
         return formatted
     }
 
@@ -176,16 +223,14 @@ class RegisterActivity : AppCompatActivity() {
                             .document(it.uid)
                             .set(userData)
                             .addOnSuccessListener {
-                                startActivity(Intent(this, DashboardActivity::class.java)
-                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
-                                finish()
+                                navigateToDashboard()
                             }
                             .addOnFailureListener { e ->
-                                showError("Error saving data: ${e.message}")
+                                showError(emailError, "Error saving data")
                             }
                     }
                 } else {
-                    showError("Registration failed: ${task.exception?.message}")
+                    showError(emailError, "Registration failed")
                 }
             }
     }
@@ -200,7 +245,6 @@ class RegisterActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Create user profile in Firestore
                     val user = auth.currentUser
                     user?.let {
                         val userData = hashMapOf(
@@ -213,21 +257,22 @@ class RegisterActivity : AppCompatActivity() {
                             .document(it.uid)
                             .set(userData)
                             .addOnSuccessListener {
-                                startActivity(Intent(this, DashboardActivity::class.java)
-                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
-                                finish()
+                                navigateToDashboard()
                             }
                             .addOnFailureListener { e ->
-                                showError("Error saving user data: ${e.message}")
+                                showError(emailError, "Error saving user data")
                             }
                     }
                 } else {
-                    showError("Authentication Failed: ${task.exception?.message}")
+                    showError(emailError, "Authentication failed")
                 }
             }
     }
 
-    private fun showError(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    private fun navigateToDashboard() {
+        val intent = Intent(this, DashboardActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(intent)
+        finish()
     }
 }

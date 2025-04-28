@@ -115,7 +115,20 @@
 					android:layout_gravity="start|center_vertical"
 					android:layout_marginStart="12dp"
 					android:src="@drawable/ic_email"
+					android:elevation="2dp"
 					android:contentDescription="Email icon" />
+
+				<TextView
+					android:id="@+id/email_error"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="4dp"
+					android:textColor="#DC2626"
+					android:textSize="12sp"
+					android:visibility="gone"
+					android:layout_gravity="start|bottom"
+					android:layout_marginStart="12dp"
+					android:layout_marginBottom="-20dp" />
 			</FrameLayout>
 
 			<!-- Password Field -->
@@ -153,6 +166,7 @@
 					android:layout_height="24dp"
 					android:layout_gravity="start|center_vertical"
 					android:layout_marginStart="12dp"
+					android:elevation="2dp"
 					android:src="@drawable/ic_lock"
 					android:contentDescription="Lock icon" />
 
@@ -161,11 +175,24 @@
 					android:layout_width="24dp"
 					android:layout_height="24dp"
 					android:layout_gravity="end|center_vertical"
+					android:elevation="2dp"
 					android:layout_marginEnd="12dp"
 					android:src="@drawable/ic_visibility"
 					android:contentDescription="Toggle password visibility"
 					android:clickable="true"
 					android:focusable="true" />
+
+				<TextView
+					android:id="@+id/password_error"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="4dp"
+					android:textColor="#DC2626"
+					android:textSize="12sp"
+					android:visibility="gone"
+					android:layout_gravity="start|bottom"
+					android:layout_marginStart="12dp"
+					android:layout_marginBottom="-20dp" />
 			</FrameLayout>
 
 			<!-- Sign In Button -->
