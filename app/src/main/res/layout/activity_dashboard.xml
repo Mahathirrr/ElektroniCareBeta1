@@ -78,8 +78,8 @@
 
                         <ImageView
                             android:id="@+id/notification_icon"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:layout_marginEnd="16dp"
                             android:layout_gravity="center_vertical"
                             android:src="@drawable/ic_bell"
@@ -87,8 +87,8 @@
 
                         <ImageView
                             android:id="@+id/profile_icon"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:layout_gravity="center_vertical"
                             android:src="@drawable/ic_person"
                             app:tint="#FFFFFF" />

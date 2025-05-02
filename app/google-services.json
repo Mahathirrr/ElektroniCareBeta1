@@ -1,124 +1,26 @@
 {
   "project_info": {
-    "project_number": "1006794351055",
-    "firebase_url": "https://contoh-85232-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "contoh-85232",
-    "storage_bucket": "contoh-85232.firebasestorage.app"
+    "project_number": "23815238785",
+    "project_id": "elektronicare-4a4dc",
+    "storage_bucket": "elektronicare-4a4dc.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1006794351055:android:4bfc6bfe24473187d072ba",
-        "android_client_info": {
-          "package_name": "com.DefaultCompany.Firebase"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1006794351055-b1dgjvqbpqr09nva4b9dnasisg0ili0k.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAWs_AAOf4PABG-ZKYuaQ8t4LsvsTg7BJI"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1006794351055-b1dgjvqbpqr09nva4b9dnasisg0ili0k.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1006794351055:android:ecaadde7667433e9d072ba",
-        "android_client_info": {
-          "package_name": "com.NextStep.ARMolecularExplorer"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1006794351055-b1dgjvqbpqr09nva4b9dnasisg0ili0k.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAWs_AAOf4PABG-ZKYuaQ8t4LsvsTg7BJI"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1006794351055-b1dgjvqbpqr09nva4b9dnasisg0ili0k.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1006794351055:android:00c46c54be82220ed072ba",
+        "mobilesdk_app_id": "1:23815238785:android:4e45bd4b963c3933378980",
         "android_client_info": {
           "package_name": "com.example.elektronicarebeta1"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "1006794351055-b1dgjvqbpqr09nva4b9dnasisg0ili0k.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAWs_AAOf4PABG-ZKYuaQ8t4LsvsTg7BJI"
+          "current_key": "AIzaSyB3e48kCnoG2WTxk76pvNJhl4H_KAmcwiw"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1006794351055-b1dgjvqbpqr09nva4b9dnasisg0ili0k.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1006794351055:android:6028a257f458d02cd072ba",
-        "android_client_info": {
-          "package_name": "com.example.imageview"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1006794351055-b1dgjvqbpqr09nva4b9dnasisg0ili0k.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAWs_AAOf4PABG-ZKYuaQ8t4LsvsTg7BJI"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1006794351055-b1dgjvqbpqr09nva4b9dnasisg0ili0k.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

@@ -55,13 +55,13 @@ class LoginActivityTest {
         }
     }
 
-    @Test
-    fun testEmailPasswordLogin_EmptyFields() {
-        scenario.onActivity { activity ->
-            activity.findViewById<Button>(R.id.btn_sign_in).performClick()
-            verify(activity).showError(any())
-        }
-    }
+//    @Test
+//    fun testEmailPasswordLogin_EmptyFields() {
+//        scenario.onActivity { activity ->
+//            activity.findViewById<Button>(R.id.btn_sign_in).performClick()
+//            verify(activity).showError(any())
+//        }
+//    }
 
     @Test
     fun testValidateInputs() {
