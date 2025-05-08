@@ -62,13 +62,6 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_filter"
-                            android:tint="#FFFFFF"
-                            android:layout_marginEnd="16dp" />
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
                             android:src="@drawable/ic_bell"
                             android:tint="#FFFFFF" />
 
@@ -288,24 +281,6 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sort by:"
-                        android:textColor="#6B7280"
-                        android:textSize="13sp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="8dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Rating"
-                        android:textColor="#7C3AED"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:layout_gravity="center_vertical" />
-
                 </LinearLayout>
 
                 <!-- Fresh TekNik Card -->
@@ -330,7 +305,7 @@
                         <ImageView
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                            android:src="@drawable/technician_image"
+                            android:src="@drawable/technician2"
                             android:scaleType="centerCrop"
                             android:layout_marginEnd="16dp" />
 
@@ -343,7 +318,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Fresh TekNik"
+                                android:text="Tehcnician 1"
                                 android:textColor="#111827"
                                 android:textSize="16sp"
                                 android:textStyle="bold"

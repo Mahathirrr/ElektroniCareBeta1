@@ -85,13 +85,6 @@
                             android:src="@drawable/ic_bell"
                             android:tint="#FFFFFF" />
 
-                        <ImageView
-                            android:id="@+id/profile_icon"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/ic_person"
-                            app:tint="#FFFFFF" />
                     </LinearLayout>
                 </LinearLayout>
 

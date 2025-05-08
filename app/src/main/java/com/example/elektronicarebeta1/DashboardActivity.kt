@@ -44,8 +44,7 @@ class DashboardActivity : AppCompatActivity() {
             Log.d("DashboardActivity", "Initializing views")
             userNameText = findViewById<TextView>(R.id.welcome_text)
             val notificationIcon = findViewById<ImageView>(R.id.notification_icon)
-            val profileIcon = findViewById<ImageView>(R.id.profile_icon)
-            
+
             Toast.makeText(this, "Welcome to Dashboard", Toast.LENGTH_SHORT).show()
             
             // Load user data
@@ -62,12 +61,7 @@ class DashboardActivity : AppCompatActivity() {
                 Toast.makeText(this, "Notifications coming soon", Toast.LENGTH_SHORT).show()
                 //            startActivity(Intent(this, NotificationActivity::class.java))
             }
-            
-            profileIcon.setOnClickListener {
-                Toast.makeText(this, "Profile coming soon", Toast.LENGTH_SHORT).show()
-                // TODO: Implement profile screen navigation
-            }
-            
+
             Log.d("DashboardActivity", "Dashboard setup completed successfully")
         } catch (e: Exception) {
             Log.e("DashboardActivity", "Error in onCreate", e)
