@@ -31,10 +31,8 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:background="@drawable/ic_arrow_left_tiny"
-                    android:text="&lt;"
                     android:gravity="center"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
+                    android:backgroundTint="#B0B0B0" />
             </RelativeLayout>
 
             <!-- Content Area -->
@@ -92,7 +90,7 @@
                         android:layout_width="14dp"
                         android:layout_height="14dp"
                         android:src="@drawable/ic_location_pin"
-                        android:tint="#4B5563"
+                        app:tint="#4B5563"
                         android:layout_marginEnd="8dp"/>
 
                     <TextView
@@ -115,7 +113,7 @@
                         android:layout_width="14dp"
                         android:layout_height="14dp"
                         android:src="@drawable/ic_calender"
-                        android:tint="#4B5563"
+                        app:tint="#4B5563"
                         android:layout_marginEnd="8dp"/>
 
                     <TextView
@@ -157,35 +155,26 @@
                     android:orientation="horizontal"
                     android:layout_marginBottom="40dp">
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Waiting"
                         android:textAllCaps="false"
-                        android:textColor="#111827"
                         android:background="@drawable/yellow_button_background"
                         android:padding="15dp"
                         android:layout_marginEnd="7dp"/>
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Cancel Repair"
                         android:textAllCaps="false"
-                        android:textColor="#111827"
                         android:background="@drawable/gray_button_background"
                         android:padding="15dp"
                         android:layout_marginStart="7dp"/>
                 </LinearLayout>
-
-                <!-- Small red rectangle indicator -->
-                <View
-                    android:layout_width="4dp"
-                    android:layout_height="4dp"
-                    android:background="#FF0000"
-                    android:layout_gravity="center_horizontal" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

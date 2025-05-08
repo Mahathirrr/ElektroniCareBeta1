@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/button_background_purple"
+        android:background="@drawable/button_purple"
         android:text="Next"
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="32dp"
-        android:background="@drawable/button_background_white"
+        android:background="@drawable/button_outline_white"
         android:text="Skip"
         android:textColor="#7C3AED"
         android:textSize="16sp" />
