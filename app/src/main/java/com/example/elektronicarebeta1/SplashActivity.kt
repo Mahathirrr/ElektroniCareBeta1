@@ -70,10 +70,7 @@ class SplashActivity : AppCompatActivity() {
 
         val intent = when {
             currentUser != null -> Intent(this, DashboardActivity::class.java)
-            isFirstLaunch -> {
-                // We'll set the flag to false in OnboardingActivity when it's completed
-                Intent(this, OnboardingActivity::class.java)
-            }
+            isFirstLaunch -> Intent(this, OnboardingActivity::class.java)
             else -> Intent(this, WelcomeActivity::class.java)
         }
 

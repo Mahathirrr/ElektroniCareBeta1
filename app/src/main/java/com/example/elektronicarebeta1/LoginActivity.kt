@@ -3,7 +3,6 @@ package com.example.elektronicarebeta1
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -15,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -34,28 +34,31 @@ class LoginActivity : AppCompatActivity() {
     private val googleSignInLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        Log.d("LoginActivity", "Google Sign-In result received: ${result.resultCode}")
-        
         if (result.resultCode == RESULT_OK) {
-            Log.d("LoginActivity", "Google Sign-In OK, getting account")
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             try {
                 val account = task.getResult(ApiException::class.java)
-                Log.d("LoginActivity", "Google Sign-In successful: ${account.email}")
                 account?.idToken?.let {
                     firebaseAuthWithGoogle(it)
                 } ?: run {
-                    Log.e("LoginActivity", "ID token is null")
                     Toast.makeText(this, "Google Sign-In failed: ID token is null", Toast.LENGTH_LONG).show()
                 }
             } catch (e: ApiException) {
-                Log.e("LoginActivity", "Google sign in failed: ${e.statusCode}", e)
-                Toast.makeText(this, "Google Sign-In failed: ${e.message} (${e.statusCode})", Toast.LENGTH_LONG).show()
-                showError(emailError, "Google sign in failed")
+                val errorMessage = when(e.statusCode) {
+                    GoogleSignInStatusCodes.SIGN_IN_CANCELLED -> "Sign in was cancelled"
+                    GoogleSignInStatusCodes.SIGN_IN_FAILED -> "Sign in failed"
+                    GoogleSignInStatusCodes.SIGN_IN_CURRENTLY_IN_PROGRESS -> "Sign in already in progress"
+                    GoogleSignInStatusCodes.INVALID_ACCOUNT -> "Invalid account selected"
+                    GoogleSignInStatusCodes.SIGN_IN_REQUIRED -> "Sign in required"
+                    GoogleSignInStatusCodes.NETWORK_ERROR -> "Network error - check your connection"
+                    else -> "Google sign in failed: ${e.statusCode}"
+                }
+                Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+                showError(emailError, errorMessage)
             }
         } else {
-            Log.d("LoginActivity", "Google Sign-In canceled or failed")
             Toast.makeText(this, "Google Sign-In canceled", Toast.LENGTH_SHORT).show()
+            showError(emailError, "Google Sign-In was canceled")
         }
     }
 
@@ -63,45 +66,21 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Inisialisasi Firebase
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
-        
-        // Log untuk debugging
-        Log.d("LoginActivity", "Firebase Auth initialized: ${auth != null}")
-        Log.d("LoginActivity", "Firebase Firestore initialized: ${db != null}")
-        
-        // Test koneksi Firestore
-        testFirestoreConnection()
 
-        // Konfigurasi Google Sign In dengan string hardcoded untuk safety
-        // (Tidak menggunakan R.string.default_web_client_id)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id)) // Akan diganti dengan nilai actual saat build
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
         try {
             googleSignInClient = GoogleSignIn.getClient(this, gso)
-            Log.d("LoginActivity", "Google Sign-In client initialized successfully")
         } catch (e: Exception) {
-            Log.e("LoginActivity", "Failed to initialize Google Sign-In client", e)
             Toast.makeText(this, "Google Sign-In setup error: ${e.message}", Toast.LENGTH_LONG).show()
         }
 
         setupViews()
-    }
-
-    private fun testFirestoreConnection() {
-        db.collection("test").document("connection")
-            .set(hashMapOf("timestamp" to System.currentTimeMillis()))
-            .addOnSuccessListener {
-                Log.d("LoginActivity", "Firestore connection successful")
-            }
-            .addOnFailureListener { e ->
-                Log.e("LoginActivity", "Firestore connection failed", e)
-                Toast.makeText(this, "Firebase connection error: ${e.message}", Toast.LENGTH_LONG).show()
-            }
     }
 
     private fun setupViews() {
@@ -116,7 +95,6 @@ class LoginActivity : AppCompatActivity() {
         val signUpLink = findViewById<TextView>(R.id.link_sign_up)
         val googleSignInButton = findViewById<View>(R.id.btn_google_signin)
 
-        // Clear errors when editing
         emailEdit.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) clearError(emailError)
         }
@@ -138,7 +116,6 @@ class LoginActivity : AppCompatActivity() {
         }
 
         signInButton.setOnClickListener {
-            Log.d("LoginActivity", "Sign In button clicked")
             clearAllErrors()
             val email = emailEdit.text.toString().trim()
             val password = passwordEdit.text.toString().trim()
@@ -160,11 +137,9 @@ class LoginActivity : AppCompatActivity() {
 
         googleSignInButton.setOnClickListener {
             try {
-                Log.d("LoginActivity", "Google Sign In button clicked")
                 Toast.makeText(this, "Starting Google Sign-In...", Toast.LENGTH_SHORT).show()
                 signInWithGoogle()
             } catch (e: Exception) {
-                Log.e("LoginActivity", "Error during Google sign in button click", e)
                 Toast.makeText(this, "Google Sign-In Button Error: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
@@ -202,16 +177,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginUser(email: String, password: String) {
-        Log.d("LoginActivity", "Attempting to login with email: $email")
-        
         auth.signInWithEmailAndPassword(email, password)
-            .addOnSuccessListener { authResult ->
-                Log.d("LoginActivity", "Login successful: ${authResult.user?.uid}")
+            .addOnSuccessListener {
                 Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
                 navigateToDashboard()
             }
             .addOnFailureListener { e ->
-                Log.e("LoginActivity", "Login failed", e)
                 Toast.makeText(this, "Login failed: ${e.message}", Toast.LENGTH_LONG).show()
                 showError(emailError, "Invalid email or password")
             }
@@ -219,21 +190,17 @@ class LoginActivity : AppCompatActivity() {
 
     private fun signInWithGoogle() {
         try {
-            Log.d("LoginActivity", "Starting Google Sign-In process")
             val signInIntent = googleSignInClient.signInIntent
             googleSignInLauncher.launch(signInIntent)
         } catch (e: Exception) {
-            Log.e("LoginActivity", "Error starting Google Sign-In", e)
             Toast.makeText(this, "Google Sign-In Error: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
-        Log.d("LoginActivity", "Authenticating with Google token")
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
             .addOnSuccessListener { authResult ->
-                Log.d("LoginActivity", "Google authentication successful: ${authResult.user?.uid}")
                 val user = authResult.user
                 user?.let {
                     val userData = hashMapOf(
@@ -242,38 +209,30 @@ class LoginActivity : AppCompatActivity() {
                         "mobile" to ""
                     )
 
-                    Log.d("LoginActivity", "Saving user data to Firestore: ${it.uid}")
                     db.collection("users")
                         .document(it.uid)
                         .set(userData)
                         .addOnSuccessListener {
-                            Log.d("LoginActivity", "User data saved successfully")
                             Toast.makeText(this@LoginActivity, "Google sign-in successful", Toast.LENGTH_SHORT).show()
                             navigateToDashboard()
                         }
                         .addOnFailureListener { e ->
-                            Log.e("LoginActivity", "Error saving user data", e)
                             Toast.makeText(this@LoginActivity, "Error saving user data: ${e.message}", Toast.LENGTH_LONG).show()
                         }
                 }
             }
             .addOnFailureListener { e ->
-                Log.e("LoginActivity", "Google authentication failed", e)
                 Toast.makeText(this, "Google authentication failed: ${e.message}", Toast.LENGTH_LONG).show()
             }
     }
 
     private fun navigateToDashboard() {
         try {
-            Log.d("LoginActivity", "Creating intent for DashboardActivity")
             val intent = Intent(this, DashboardActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            Log.d("LoginActivity", "Starting DashboardActivity")
             startActivity(intent)
-            Log.d("LoginActivity", "Finishing LoginActivity")
             finish()
         } catch (e: Exception) {
-            Log.e("LoginActivity", "Error navigating to dashboard", e)
             Toast.makeText(this, "Error navigating to dashboard: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
