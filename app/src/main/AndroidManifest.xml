@@ -58,6 +58,21 @@
         <activity
             android:name=".DashboardActivity"
             android:exported="false" />
+            
+        <!-- History Activity -->
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="false" />
+            
+        <!-- Services Activity -->
+        <activity
+            android:name=".ServicesActivity"
+            android:exported="false" />
+            
+        <!-- Profile Activity -->
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
 
     </application>
 
