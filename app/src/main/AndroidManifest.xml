@@ -73,6 +73,11 @@
         <activity
             android:name=".ProfileActivity"
             android:exported="false" />
+            
+        <!-- Booking Activity -->
+        <activity
+            android:name=".BookingActivity"
+            android:exported="false" />
 
     </application>
 

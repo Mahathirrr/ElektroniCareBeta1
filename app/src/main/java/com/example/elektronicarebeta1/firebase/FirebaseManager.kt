@@ -1,13 +1,16 @@
 package com.example.elektronicarebeta1.firebase
 
+import android.net.Uri
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
 import java.util.Date
+import java.util.UUID
 
 /**
  * Singleton class to manage all Firebase operations
@@ -18,12 +21,17 @@ object FirebaseManager {
     // Firebase instances
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
+    private val storage = FirebaseStorage.getInstance()
     
     // Collection references
     private const val USERS_COLLECTION = "users"
     private const val REPAIRS_COLLECTION = "repairs"
     private const val TECHNICIANS_COLLECTION = "technicians"
     private const val SERVICES_COLLECTION = "services"
+    
+    // Storage references
+    private const val PROFILE_IMAGES = "profile_images"
+    private const val REPAIR_IMAGES = "repair_images"
     
     // User operations
     fun getCurrentUser(): FirebaseUser? = auth.currentUser
@@ -133,5 +141,45 @@ object FirebaseManager {
     // Authentication operations
     fun signOut() {
         auth.signOut()
+    }
+    
+    // Storage operations
+    suspend fun uploadProfileImage(imageUri: Uri): String? {
+        val userId = getUserId() ?: return null
+        val filename = "$userId-${UUID.randomUUID()}"
+        val storageRef = storage.reference.child("$PROFILE_IMAGES/$filename")
+        
+        return try {
+            // Upload the file
+            val uploadTask = storageRef.putFile(imageUri).await()
+            
+            // Get download URL
+            val downloadUrl = storageRef.downloadUrl.await().toString()
+            
+            // Update user profile with the image URL
+            updateUserData(mapOf("profileImageUrl" to downloadUrl))
+            
+            downloadUrl
+        } catch (e: Exception) {
+            Log.e(TAG, "Error uploading profile image", e)
+            null
+        }
+    }
+    
+    suspend fun uploadRepairImage(imageUri: Uri, repairId: String? = null): String? {
+        val userId = getUserId() ?: return null
+        val filename = "${repairId ?: "new"}-${UUID.randomUUID()}"
+        val storageRef = storage.reference.child("$REPAIR_IMAGES/$userId/$filename")
+        
+        return try {
+            // Upload the file
+            storageRef.putFile(imageUri).await()
+            
+            // Get download URL
+            storageRef.downloadUrl.await().toString()
+        } catch (e: Exception) {
+            Log.e(TAG, "Error uploading repair image", e)
+            null
+        }
     }
 }
