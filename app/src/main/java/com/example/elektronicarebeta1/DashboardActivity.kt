@@ -7,22 +7,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import androidx.lifecycle.lifecycleScope
+import com.example.elektronicarebeta1.firebase.FirebaseDataSeeder
+import com.example.elektronicarebeta1.firebase.FirebaseManager
+import kotlinx.coroutines.launch
 
 class DashboardActivity : AppCompatActivity() {
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
     private lateinit var userNameText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
-        auth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
-
-        val currentUser = auth.currentUser
+        val currentUser = FirebaseManager.getCurrentUser()
         if (currentUser == null) {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
@@ -31,6 +28,11 @@ class DashboardActivity : AppCompatActivity() {
 
         userNameText = findViewById<TextView>(R.id.welcome_text)
         val notificationIcon = findViewById<ImageView>(R.id.notification_icon)
+
+        // Seed Firebase with mock data
+        lifecycleScope.launch {
+            FirebaseDataSeeder.seedAllData(this@DashboardActivity)
+        }
 
         loadUserData()
         setupBottomNavigation()
@@ -42,21 +44,16 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun loadUserData() {
-        val currentUser = auth.currentUser
-        currentUser?.let { user ->
-            db.collection("users").document(user.uid).get()
-                .addOnSuccessListener { document ->
-                    if (document != null && document.exists()) {
-                        val fullName = document.getString("fullName") ?: "User"
-                        val firstName = fullName.split(" ").firstOrNull() ?: fullName
-                        userNameText.text = "Welcome back, $firstName!"
-                    } else {
-                        userNameText.text = "Welcome back!"
-                    }
-                }
-                .addOnFailureListener {
-                    userNameText.text = "Welcome back!"
-                }
+        lifecycleScope.launch {
+            val userDoc = FirebaseManager.getUserData()
+            
+            if (userDoc != null && userDoc.exists()) {
+                val fullName = userDoc.getString("fullName") ?: "User"
+                val firstName = fullName.split(" ").firstOrNull() ?: fullName
+                userNameText.text = "Welcome back, $firstName!"
+            } else {
+                userNameText.text = "Welcome back!"
+            }
         }
     }
 
@@ -67,15 +64,15 @@ class DashboardActivity : AppCompatActivity() {
         val profileNav = findViewById<View>(R.id.nav_profile)
 
         historyNav.setOnClickListener {
-            Toast.makeText(this, "History coming soon", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, HistoryActivity::class.java))
         }
 
         servicesNav.setOnClickListener {
-            Toast.makeText(this, "Services coming soon", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, ServicesActivity::class.java))
         }
 
         profileNav.setOnClickListener {
-            Toast.makeText(this, "Profile coming soon", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, ProfileActivity::class.java))
         }
     }
 
@@ -85,7 +82,7 @@ class DashboardActivity : AppCompatActivity() {
         val repairCard2 = findViewById<View>(R.id.repair_card_2)
 
         viewAllRecent.setOnClickListener {
-            Toast.makeText(this, "View all repairs coming soon", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, HistoryActivity::class.java))
         }
 
         repairCard1.setOnClickListener {

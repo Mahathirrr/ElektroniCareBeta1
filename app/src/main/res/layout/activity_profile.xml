@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="16dp"
-            android:text="Our Services"
+            android:text="My Profile"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -57,54 +57,154 @@
             android:orientation="vertical"
             android:paddingBottom="16dp">
 
-            <!-- Services List -->
+            <!-- Profile Header -->
             <LinearLayout
-                android:id="@+id/services_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="16dp"
-                android:paddingTop="16dp">
-                
-                <!-- Services will be added here programmatically -->
-                
-            </LinearLayout>
-
-            <!-- No Services View -->
-            <LinearLayout
-                android:id="@+id/no_services_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:padding="32dp"
-                android:visibility="gone">
+                android:padding="24dp">
 
                 <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:src="@drawable/ic_vendor"
-                    android:tint="#9CA3AF"
-                    android:alpha="0.5"
+                    android:id="@+id/profile_image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/avatar_circle"
+                    android:background="@drawable/circle_background"
+                    android:padding="2dp"
                     android:layout_marginBottom="16dp"/>
 
                 <TextView
+                    android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No Services Available"
+                    android:text="John Doe"
                     android:textColor="#111827"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
-                    android:layout_marginBottom="8dp"/>
+                    android:layout_marginBottom="4dp"/>
+
+                <TextView
+                    android:id="@+id/user_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="john.doe@example.com"
+                    android:textColor="#4B5563"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <!-- Profile Information -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_card"
+                android:layout_marginHorizontal="16dp"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="We're currently updating our service offerings."
-                    android:textColor="#4B5563"
-                    android:textSize="14sp"
-                    android:gravity="center"/>
+                    android:text="Personal Information"
+                    android:textColor="#111827"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Phone Number -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_phone"
+                        android:tint="#7C3AED"
+                        android:layout_marginEnd="12dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Phone Number"
+                            android:textColor="#4B5563"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:id="@+id/user_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+62812345678"
+                            android:textColor="#111827"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Address -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_location_pin"
+                        android:tint="#7C3AED"
+                        android:layout_marginEnd="12dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Address"
+                            android:textColor="#4B5563"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:id="@+id/user_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jl. Sudirman No. 123, Jakarta"
+                            android:textColor="#111827"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
+
+            <!-- Buttons -->
+            <Button
+                android:id="@+id/edit_profile_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit Profile"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/button_background_purple"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="12dp"
+                android:padding="12dp"/>
+
+            <Button
+                android:id="@+id/logout_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Logout"
+                android:textColor="#7C3AED"
+                android:background="@drawable/button_outline"
+                android:layout_marginHorizontal="16dp"
+                android:padding="12dp"/>
 
         </LinearLayout>
     </ScrollView>
@@ -182,13 +282,13 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_vendor"
-                android:tint="#7C3AED"/>
+                android:tint="#9CA3AF"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Services"
-                android:textColor="#7C3AED"
+                android:textColor="#9CA3AF"
                 android:textSize="12sp"
                 android:layout_marginTop="4dp"/>
         </LinearLayout>
@@ -207,13 +307,13 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_person"
-                android:tint="#9CA3AF"/>
+                android:tint="#7C3AED"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Profile"
-                android:textColor="#9CA3AF"
+                android:textColor="#7C3AED"
                 android:textSize="12sp"
                 android:layout_marginTop="4dp"/>
         </LinearLayout>
