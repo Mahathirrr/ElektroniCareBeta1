@@ -138,11 +138,12 @@ class ServicesActivity : AppCompatActivity() {
         
         // Set click listener
         serviceView.setOnClickListener {
-            Toast.makeText(this, "Service booking coming soon", Toast.LENGTH_SHORT).show()
-            // TODO: Navigate to service booking
-            // val intent = Intent(this, BookServiceActivity::class.java)
-            // intent.putExtra("SERVICE_ID", service.id)
-            // startActivity(intent)
+            val intent = Intent(this, BookingActivity::class.java).apply {
+                putExtra("SERVICE_ID", service.id)
+                putExtra("SERVICE_NAME", service.name)
+                putExtra("SERVICE_PRICE", service.basePrice)
+            }
+            startActivity(intent)
         }
         
         servicesContainer.addView(serviceView)

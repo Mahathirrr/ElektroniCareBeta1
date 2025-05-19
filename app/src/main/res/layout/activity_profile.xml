@@ -72,6 +72,17 @@
                     android:src="@drawable/avatar_circle"
                     android:background="@drawable/circle_background"
                     android:padding="2dp"
+                    android:layout_marginBottom="8dp"/>
+                    
+                <Button
+                    android:id="@+id/change_photo_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Change Photo"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/button_background_purple"
+                    android:padding="8dp"
+                    android:textSize="12sp"
                     android:layout_marginBottom="16dp"/>
 
                 <TextView
