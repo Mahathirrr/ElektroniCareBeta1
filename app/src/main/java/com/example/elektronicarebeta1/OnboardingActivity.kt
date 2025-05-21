@@ -5,15 +5,17 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView // Added
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.example.elektronicarebeta1.DepthPageTransformer
 
 class OnboardingActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
     private lateinit var indicatorContainer: LinearLayout
     private lateinit var nextButton: Button
-    private lateinit var skipButton: Button
+    private lateinit var skipButton: TextView // Changed to TextView
 
     private val onboardingPages = listOf(
         OnboardingPage(
@@ -46,12 +48,13 @@ class OnboardingActivity : AppCompatActivity() {
         viewPager = findViewById(R.id.viewPager)
         indicatorContainer = findViewById(R.id.indicatorContainer)
         nextButton = findViewById(R.id.nextButton)
-        skipButton = findViewById(R.id.skipButton)
+        skipButton = findViewById<TextView>(R.id.skipButton) // Changed to TextView
     }
 
     private fun setupViewPager() {
         val adapter = OnboardingAdapter(onboardingPages)
         viewPager.adapter = adapter
+        viewPager.setPageTransformer(DepthPageTransformer())
         viewPager.isUserInputEnabled = true
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
