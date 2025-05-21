@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:text="Done"
         android:background="@drawable/button_outline"
-        android:textColor="@color/purple_500"
+        android:textColor="@color/purple_primary"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:paddingVertical="12dp"/>
 
