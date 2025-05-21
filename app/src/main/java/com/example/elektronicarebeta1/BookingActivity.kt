@@ -193,7 +193,7 @@ class BookingActivity : AppCompatActivity() {
             }
             
             // Create repair request data
-            val repairData = hashMapOf(
+            val repairData: HashMap<String, Any> = hashMapOf(
                 "deviceType" to deviceType,
                 "deviceModel" to deviceModel,
                 "issueDescription" to issueDescription,
@@ -211,7 +211,7 @@ class BookingActivity : AppCompatActivity() {
             }
             
             // Submit repair request
-            val repairId = FirebaseManager.createRepairRequest(repairData)
+            val repairId = FirebaseManager.createRepairRequest(repairData as Map<String, Any>)
             
             if (repairId != null) {
                 runOnUiThread {

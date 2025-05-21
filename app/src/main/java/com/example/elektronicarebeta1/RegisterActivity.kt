@@ -239,7 +239,7 @@ class RegisterActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener { authResult ->
                 val user = authResult.user
-                val userData = hashMapOf(
+                val userData: HashMap<String, Any> = hashMapOf(
                     "fullName" to fullName,
                     "mobile" to formatIndonesianPhoneNumber(mobile),
                     "email" to email
@@ -248,7 +248,7 @@ class RegisterActivity : AppCompatActivity() {
                 user?.let {
                     db.collection("users")
                         .document(it.uid)
-                        .set(userData)
+                        .set(userData as Map<String, Any>)
                         .addOnSuccessListener {
                             Toast.makeText(this@RegisterActivity, "Registration successful", Toast.LENGTH_SHORT).show()
                             navigateToDashboard()
@@ -279,15 +279,15 @@ class RegisterActivity : AppCompatActivity() {
             .addOnSuccessListener { authResult ->
                 val user = authResult.user
                 user?.let {
-                    val userData = hashMapOf(
-                        "fullName" to it.displayName,
-                        "email" to it.email,
+                    val userData: HashMap<String, Any> = hashMapOf(
+                        "fullName" to (it.displayName ?: ""),
+                        "email" to (it.email ?: ""),
                         "mobile" to ""
                     )
 
                     db.collection("users")
                         .document(it.uid)
-                        .set(userData)
+                        .set(userData as Map<String, Any>)
                         .addOnSuccessListener {
                             Toast.makeText(this@RegisterActivity, "Google sign-in successful", Toast.LENGTH_SHORT).show()
                             navigateToDashboard()
