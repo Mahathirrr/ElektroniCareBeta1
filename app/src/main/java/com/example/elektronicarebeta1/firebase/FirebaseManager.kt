@@ -83,7 +83,7 @@ object FirebaseManager {
         }
     }
     
-    suspend fun createRepairRequest(repairData: Map<String, Any>): String? {
+    suspend fun createRepairRequest(repairData: Map<String, Any?>): String? {
         val userId = getUserId() ?: return null
         val repairWithUser = repairData.toMutableMap()
         repairWithUser.putIfAbsent("createdAt", Date()) // Default if not provided
