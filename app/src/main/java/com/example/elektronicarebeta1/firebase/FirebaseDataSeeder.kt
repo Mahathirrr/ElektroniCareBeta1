@@ -61,7 +61,7 @@ object FirebaseDataSeeder {
     private suspend fun seedCurrentUser() {
         val currentUser = auth.currentUser ?: return
         
-        val userData = hashMapOf(
+        val userData: HashMap<String, Any> = hashMapOf(
             "fullName" to (currentUser.displayName ?: "John Doe"),
             "email" to (currentUser.email ?: ""),
             "phone" to "+62812345678",
@@ -71,7 +71,7 @@ object FirebaseDataSeeder {
         )
         
         try {
-            db.collection(USERS_COLLECTION).document(currentUser.uid).set(userData).await()
+            db.collection(USERS_COLLECTION).document(currentUser.uid).set(userData as Map<String, Any>).await()
             Log.d(TAG, "User data seeded successfully")
         } catch (e: Exception) {
             Log.e(TAG, "Error seeding user data", e)
@@ -83,7 +83,7 @@ object FirebaseDataSeeder {
      */
     private suspend fun seedTechnicians() {
         val technicians = listOf(
-            hashMapOf(
+            hashMapOf<String, Any>(
                 "fullName" to "Ahmad Rizki",
                 "specialization" to "Phone Repair Specialist",
                 "experience" to 5,
@@ -97,7 +97,7 @@ object FirebaseDataSeeder {
                 "availableDays" to listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"),
                 "createdAt" to Date()
             ),
-            hashMapOf(
+            hashMapOf<String, Any>(
                 "fullName" to "Siti Nurhayati",
                 "specialization" to "Laptop Repair Expert",
                 "experience" to 7,
@@ -111,7 +111,7 @@ object FirebaseDataSeeder {
                 "availableDays" to listOf("Monday", "Wednesday", "Friday", "Saturday"),
                 "createdAt" to Date()
             ),
-            hashMapOf(
+            hashMapOf<String, Any>(
                 "fullName" to "Budi Santoso",
                 "specialization" to "TV & Electronics Repair",
                 "experience" to 10,
@@ -125,7 +125,7 @@ object FirebaseDataSeeder {
                 "availableDays" to listOf("Tuesday", "Thursday", "Saturday", "Sunday"),
                 "createdAt" to Date()
             ),
-            hashMapOf(
+            hashMapOf<String, Any>(
                 "fullName" to "Dewi Lestari",
                 "specialization" to "Printer & Scanner Repair",
                 "experience" to 4,
@@ -139,7 +139,7 @@ object FirebaseDataSeeder {
                 "availableDays" to listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"),
                 "createdAt" to Date()
             ),
-            hashMapOf(
+            hashMapOf<String, Any>(
                 "fullName" to "Eko Prasetyo",
                 "specialization" to "All-around Electronics Technician",
                 "experience" to 8,
@@ -157,7 +157,7 @@ object FirebaseDataSeeder {
         
         try {
             for (technician in technicians) {
-                db.collection(TECHNICIANS_COLLECTION).add(technician).await()
+                db.collection(TECHNICIANS_COLLECTION).add(technician as Map<String, Any>).await()
             }
             Log.d(TAG, "Technicians data seeded successfully")
         } catch (e: Exception) {
@@ -170,7 +170,7 @@ object FirebaseDataSeeder {
      */
     private suspend fun seedServices() {
         val services = listOf(
-            hashMapOf(
+            hashMapOf<String, Any>(
                 "name" to "Screen Replacement",
                 "description" to "Replace damaged or cracked screens with high-quality parts.",
                 "category" to "Phone",
@@ -179,7 +179,7 @@ object FirebaseDataSeeder {
                 "imageUrl" to "https://example.com/images/screen_replacement.jpg",
                 "createdAt" to Date()
             ),
-            hashMapOf(
+            hashMapOf<String, Any>(
                 "name" to "Battery Replacement",
                 "description" to "Replace old or damaged batteries with new ones for better performance.",
                 "category" to "Phone",
@@ -188,7 +188,7 @@ object FirebaseDataSeeder {
                 "imageUrl" to "https://example.com/images/battery_replacement.jpg",
                 "createdAt" to Date()
             ),
-            hashMapOf(
+            hashMapOf<String, Any>(
                 "name" to "Water Damage Repair",
                 "description" to "Fix water-damaged devices with thorough cleaning and component replacement.",
                 "category" to "Phone",
@@ -197,7 +197,7 @@ object FirebaseDataSeeder {
                 "imageUrl" to "https://example.com/images/water_damage.jpg",
                 "createdAt" to Date()
             ),
-            hashMapOf(
+            hashMapOf<String, Any>(
                 "name" to "Laptop Screen Replacement",
                 "description" to "Replace damaged laptop screens with compatible high-quality displays.",
                 "category" to "Laptop",
@@ -206,7 +206,7 @@ object FirebaseDataSeeder {
                 "imageUrl" to "https://example.com/images/laptop_screen.jpg",
                 "createdAt" to Date()
             ),
-            hashMapOf(
+            hashMapOf<String, Any>(
                 "name" to "Laptop Keyboard Replacement",
                 "description" to "Replace damaged or non-functioning laptop keyboards.",
                 "category" to "Laptop",
@@ -215,7 +215,7 @@ object FirebaseDataSeeder {
                 "imageUrl" to "https://example.com/images/laptop_keyboard.jpg",
                 "createdAt" to Date()
             ),
-            hashMapOf(
+            hashMapOf<String, Any>(
                 "name" to "TV Panel Repair",
                 "description" to "Fix or replace damaged TV panels for better viewing experience.",
                 "category" to "TV",
@@ -224,7 +224,7 @@ object FirebaseDataSeeder {
                 "imageUrl" to "https://example.com/images/tv_panel.jpg",
                 "createdAt" to Date()
             ),
-            hashMapOf(
+            hashMapOf<String, Any>(
                 "name" to "Printer Maintenance",
                 "description" to "Clean and maintain printers for optimal performance.",
                 "category" to "Printer",
@@ -233,7 +233,7 @@ object FirebaseDataSeeder {
                 "imageUrl" to "https://example.com/images/printer_maintenance.jpg",
                 "createdAt" to Date()
             ),
-            hashMapOf(
+            hashMapOf<String, Any>(
                 "name" to "Data Recovery",
                 "description" to "Recover lost data from damaged storage devices.",
                 "category" to "Laptop",
@@ -246,7 +246,7 @@ object FirebaseDataSeeder {
         
         try {
             for (service in services) {
-                db.collection(SERVICES_COLLECTION).add(service).await()
+                db.collection(SERVICES_COLLECTION).add(service as Map<String, Any>).await()
             }
             Log.d(TAG, "Services data seeded successfully")
         } catch (e: Exception) {
@@ -284,7 +284,7 @@ object FirebaseDataSeeder {
         val calendar = Calendar.getInstance()
         
         val repairs = listOf(
-            hashMapOf(
+            hashMapOf<String, Any?>( // Allow nulls for completedDate initially
                 "userId" to currentUser.uid,
                 "deviceType" to "Phone",
                 "deviceModel" to "iPhone 13",
@@ -298,7 +298,7 @@ object FirebaseDataSeeder {
                 "location" to "Fresh Teknik Service Center",
                 "createdAt" to calendar.apply { add(Calendar.DAY_OF_MONTH, -12) }.time
             ),
-            hashMapOf(
+            hashMapOf<String, Any?>( // Allow nulls for completedDate initially
                 "userId" to currentUser.uid,
                 "deviceType" to "Laptop",
                 "deviceModel" to "MacBook Pro 2022",
@@ -321,7 +321,7 @@ object FirebaseDataSeeder {
         
         try {
             for (repair in repairs) {
-                db.collection(REPAIRS_COLLECTION).add(repair).await()
+                db.collection(REPAIRS_COLLECTION).add(repair as Map<String, Any?>).await()
             }
             Log.d(TAG, "Repairs data seeded successfully")
         } catch (e: Exception) {

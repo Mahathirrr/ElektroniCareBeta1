@@ -204,15 +204,15 @@ class LoginActivity : AppCompatActivity() {
             .addOnSuccessListener { authResult ->
                 val user = authResult.user
                 user?.let {
-                    val userData = hashMapOf(
-                        "fullName" to it.displayName,
-                        "email" to it.email,
+                    val userData: HashMap<String, Any> = hashMapOf(
+                        "fullName" to (it.displayName ?: ""), // Provide default if null
+                        "email" to (it.email ?: ""),       // Provide default if null
                         "mobile" to ""
                     )
 
                     db.collection("users")
                         .document(it.uid)
-                        .set(userData)
+                        .set(userData as Map<String, Any>)
                         .addOnSuccessListener {
                             Toast.makeText(this@LoginActivity, "Google sign-in successful", Toast.LENGTH_SHORT).show()
                             navigateToDashboard()

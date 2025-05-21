@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:textColor="@color/purple_700"
+            android:textColor="@color/purple_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/service_name"
             app:layout_constraintBottom_toBottomOf="@id/service_category"
