@@ -1,0 +1,62 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/success_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_check"
+        app:tint="#4CAF50" 
+        android:layout_marginBottom="16dp"
+        android:contentDescription="Success Icon"/>
+
+    <TextView
+        android:id="@+id/success_message_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Repair Request Submitted!"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_dark"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/repair_id_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Your Repair ID: 12345XYZ"
+        android:textSize="16sp"
+        android:textColor="@color/text_grey"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/whatsapp_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chat on WhatsApp"
+        android:background="@drawable/button_background_purple"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="8dp"
+        style="@style/Widget.MaterialComponents.Button"
+        android:paddingVertical="12dp"/>
+
+    <Button
+        android:id="@+id/done_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:background="@drawable/button_outline"
+        android:textColor="@color/purple_500"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:paddingVertical="12dp"/>
+
+</LinearLayout>

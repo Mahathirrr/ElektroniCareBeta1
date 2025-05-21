@@ -49,16 +49,19 @@ class HistoryActivity : AppCompatActivity() {
         
         homeNav.setOnClickListener {
             startActivity(Intent(this, DashboardActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }
         
         servicesNav.setOnClickListener {
             startActivity(Intent(this, ServicesActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }
         
         profileNav.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }
     }
@@ -135,5 +138,10 @@ class HistoryActivity : AppCompatActivity() {
         }
         
         repairsContainer.addView(repairView)
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }

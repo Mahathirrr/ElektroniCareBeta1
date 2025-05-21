@@ -15,6 +15,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.elektronicarebeta1.firebase.FirebaseManager
@@ -197,10 +198,11 @@ class BookingActivity : AppCompatActivity() {
                 "deviceModel" to deviceModel,
                 "issueDescription" to issueDescription,
                 "serviceId" to serviceId,
-                "status" to "pending",
+                "status" to "pending_confirmation", // Changed status
                 "estimatedCost" to servicePrice,
                 "scheduledDate" to selectedDate,
-                "location" to "ElektroniCare Service Center"
+                "location" to "ElektroniCare Service Center",
+                "technicianEmail" to "agusseptiawanasep@gmail.com" // Added technicianEmail
             )
             
             // Add image URL if available
@@ -213,13 +215,69 @@ class BookingActivity : AppCompatActivity() {
             
             if (repairId != null) {
                 runOnUiThread {
-                    Toast.makeText(this@BookingActivity, "Booking submitted successfully", Toast.LENGTH_SHORT).show()
+                    // Create an AlertDialog.Builder
+                    val builder = AlertDialog.Builder(this@BookingActivity)
                     
-                    // Navigate to history activity
-                    val intent = Intent(this@BookingActivity, HistoryActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    startActivity(intent)
-                    finish()
+                    // Inflate dialog_submission_success.xml for the dialog's view
+                    val dialogView = layoutInflater.inflate(R.layout.dialog_submission_success, null)
+                    builder.setView(dialogView)
+                    
+                    // Get references to views from the inflated layout
+                    val repairIdText = dialogView.findViewById<TextView>(R.id.repair_id_text)
+                    val whatsappButton = dialogView.findViewById<Button>(R.id.whatsapp_button)
+                    val doneButton = dialogView.findViewById<Button>(R.id.done_button)
+                    
+                    // Set the text of repair_id_text
+                    repairIdText.text = "Your Repair ID: $repairId"
+                    
+                    // Create the AlertDialog instance
+                    val dialog = builder.create()
+                    
+                    // Set up whatsapp_button's OnClickListener
+                    whatsappButton.setOnClickListener {
+                        val currentRepairId = repairId // Capture for use in this listener
+                        val currentDeviceType = deviceTypeSpinner.selectedItem.toString()
+                        val currentDeviceModel = deviceModelEdit.text.toString().trim()
+                        val currentIssueDescription = issueDescriptionEdit.text.toString().trim()
+
+                        val message = "Hello, I've submitted a repair request through ElektroniCare.\n" +
+                                      "My Repair ID: $currentRepairId\n" +
+                                      "Device: $currentDeviceType - $currentDeviceModel\n" +
+                                      "Issue: $currentIssueDescription\n\n" +
+                                      "Please provide assistance."
+                        
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.data = Uri.parse("https://api.whatsapp.com/send?text=" + Uri.encode(message))
+                        
+                        if (intent.resolveActivity(packageManager) != null) {
+                            startActivity(intent)
+                        } else {
+                            Toast.makeText(this@BookingActivity, "WhatsApp is not installed.", Toast.LENGTH_SHORT).show()
+                        }
+                        
+                        dialog.dismiss()
+                        val dashboardIntent = Intent(this@BookingActivity, DashboardActivity::class.java)
+                        dashboardIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(dashboardIntent)
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                        finish()
+                    }
+                    
+                    // Set up done_button's OnClickListener
+                    doneButton.setOnClickListener {
+                        dialog.dismiss()
+                        val intent = Intent(this@BookingActivity, DashboardActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                        finish()
+                    }
+                    
+                    // Make the dialog not cancelable by back press
+                    dialog.setCancelable(false)
+                    
+                    // Show the dialog
+                    dialog.show()
                 }
             } else {
                 runOnUiThread {
@@ -228,5 +286,10 @@ class BookingActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }

@@ -9,15 +9,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.elektronicarebeta1.firebase.FirebaseManager
 import com.example.elektronicarebeta1.models.Service
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Locale
 
-class ServicesActivity : AppCompatActivity() {
+class ServicesActivity : AppCompatActivity(), ServiceAdapter.OnItemClickListener {
     
-    private lateinit var servicesContainer: LinearLayout
+    private lateinit var servicesRecyclerView: RecyclerView
+    private lateinit var serviceAdapter: ServiceAdapter
     private lateinit var noServicesView: View
     
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,8 +28,14 @@ class ServicesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_services)
         
         // Initialize views
-        servicesContainer = findViewById(R.id.services_container)
+        servicesRecyclerView = findViewById(R.id.services_recycler_view)
         noServicesView = findViewById(R.id.no_services_view)
+        
+        // Set up RecyclerView
+        servicesRecyclerView.layoutManager = LinearLayoutManager(this)
+        serviceAdapter = ServiceAdapter(emptyList())
+        serviceAdapter.setOnItemClickListener(this)
+        servicesRecyclerView.adapter = serviceAdapter
         
         // Set up back button
         val backButton = findViewById<ImageView>(R.id.back_button)
@@ -49,16 +58,19 @@ class ServicesActivity : AppCompatActivity() {
         
         homeNav.setOnClickListener {
             startActivity(Intent(this, DashboardActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }
         
         historyNav.setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }
         
         profileNav.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }
     }
@@ -69,83 +81,31 @@ class ServicesActivity : AppCompatActivity() {
             
             if (servicesSnapshot == null || servicesSnapshot.isEmpty) {
                 noServicesView.visibility = View.VISIBLE
-                servicesContainer.visibility = View.GONE
-                return@launch
-            }
-            
-            noServicesView.visibility = View.GONE
-            servicesContainer.visibility = View.VISIBLE
-            servicesContainer.removeAllViews()
-            
-            // Group services by category
-            val servicesByCategory = mutableMapOf<String, MutableList<Service>>()
-            
-            for (document in servicesSnapshot.documents) {
-                val service = Service.fromDocument(document) ?: continue
-                val category = service.category
+                servicesRecyclerView.visibility = View.GONE
+            } else {
+                noServicesView.visibility = View.GONE
+                servicesRecyclerView.visibility = View.VISIBLE
                 
-                if (!servicesByCategory.containsKey(category)) {
-                    servicesByCategory[category] = mutableListOf()
+                val servicesList = servicesSnapshot.documents.mapNotNull { document ->
+                    Service.fromDocument(document)
                 }
-                
-                servicesByCategory[category]?.add(service)
-            }
-            
-            // Add services to view by category
-            for ((category, services) in servicesByCategory) {
-                addCategoryHeader(category)
-                
-                for (service in services) {
-                    addServiceToView(service)
-                }
-                
-                // Add spacing between categories
-                val spacer = View(this@ServicesActivity)
-                spacer.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    resources.getDimensionPixelSize(android.R.dimen.app_icon_size) / 2
-                )
-                servicesContainer.addView(spacer)
+                serviceAdapter.updateServices(servicesList)
             }
         }
     }
-    
-    private fun addCategoryHeader(category: String) {
-        val headerView = layoutInflater.inflate(R.layout.item_category_header, servicesContainer, false)
-        val categoryText = headerView.findViewById<TextView>(R.id.category_name)
-        categoryText.text = category
-        
-        servicesContainer.addView(headerView)
-    }
-    
-    private fun addServiceToView(service: Service) {
-        val serviceView = layoutInflater.inflate(R.layout.item_service, servicesContainer, false)
-        
-        // Set service details
-        val serviceNameText = serviceView.findViewById<TextView>(R.id.service_name)
-        val serviceDescText = serviceView.findViewById<TextView>(R.id.service_description)
-        val servicePriceText = serviceView.findViewById<TextView>(R.id.service_price)
-        val serviceTimeText = serviceView.findViewById<TextView>(R.id.service_time)
-        
-        serviceNameText.text = service.name
-        serviceDescText.text = service.description
-        
-        val formatter = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
-        formatter.maximumFractionDigits = 0
-        servicePriceText.text = formatter.format(service.basePrice).replace("Rp", "Rp ")
-        
-        serviceTimeText.text = service.estimatedTime ?: "Varies"
-        
-        // Set click listener
-        serviceView.setOnClickListener {
-            val intent = Intent(this, BookingActivity::class.java).apply {
-                putExtra("SERVICE_ID", service.id)
-                putExtra("SERVICE_NAME", service.name)
-                putExtra("SERVICE_PRICE", service.basePrice)
-            }
-            startActivity(intent)
+
+    override fun onItemClick(service: Service) {
+        val intent = Intent(this, BookingActivity::class.java).apply {
+            putExtra("SERVICE_ID", service.id)
+            putExtra("SERVICE_NAME", service.name)
+            putExtra("SERVICE_PRICE", service.basePrice)
         }
-        
-        servicesContainer.addView(serviceView)
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }

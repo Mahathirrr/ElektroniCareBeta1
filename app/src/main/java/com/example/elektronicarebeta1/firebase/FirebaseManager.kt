@@ -85,11 +85,10 @@ object FirebaseManager {
     
     suspend fun createRepairRequest(repairData: Map<String, Any>): String? {
         val userId = getUserId() ?: return null
-        val repairWithUser = repairData.toMutableMap().apply {
-            put("userId", userId)
-            put("status", "pending")
-            put("createdAt", Date())
-        }
+        val repairWithUser = repairData.toMutableMap()
+        repairWithUser.putIfAbsent("createdAt", Date()) // Default if not provided
+        repairWithUser.putIfAbsent("status", "pending") // Default status if not in repairData
+        repairWithUser["userId"] = userId // Current user's ID always takes precedence
         
         return try {
             val docRef = db.collection(REPAIRS_COLLECTION).add(repairWithUser).await()

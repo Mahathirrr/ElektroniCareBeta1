@@ -78,6 +78,7 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             })
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }
         
@@ -96,16 +97,19 @@ class ProfileActivity : AppCompatActivity() {
         
         homeNav.setOnClickListener {
             startActivity(Intent(this, DashboardActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }
         
         historyNav.setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }
         
         servicesNav.setOnClickListener {
             startActivity(Intent(this, ServicesActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }
     }
@@ -159,5 +163,10 @@ class ProfileActivity : AppCompatActivity() {
                 Toast.makeText(this@ProfileActivity, "Failed to upload image", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }

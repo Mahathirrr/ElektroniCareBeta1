@@ -84,6 +84,7 @@ class OnboardingActivity : AppCompatActivity() {
                 prefs.edit().putBoolean("isFirstLaunch", false).apply()
 
                 startActivity(Intent(this, WelcomeActivity::class.java))
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                 finish()
             }
         }
@@ -93,6 +94,7 @@ class OnboardingActivity : AppCompatActivity() {
             prefs.edit().putBoolean("isFirstLaunch", false).apply()
 
             startActivity(Intent(this, WelcomeActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }
     }
@@ -109,6 +111,11 @@ class OnboardingActivity : AppCompatActivity() {
 
     private fun updateButtonText(position: Int) {
         nextButton.text = if (position == onboardingPages.size - 1) "Get Started" else "Next"
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }
 

@@ -22,6 +22,7 @@ class DashboardActivity : AppCompatActivity() {
         val currentUser = FirebaseManager.getCurrentUser()
         if (currentUser == null) {
             startActivity(Intent(this, LoginActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
             return
         }
@@ -65,14 +66,17 @@ class DashboardActivity : AppCompatActivity() {
 
         historyNav.setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
 
         servicesNav.setOnClickListener {
             startActivity(Intent(this, ServicesActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
 
         profileNav.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
 
@@ -83,6 +87,7 @@ class DashboardActivity : AppCompatActivity() {
 
         viewAllRecent.setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
 
         repairCard1.setOnClickListener {
@@ -92,5 +97,10 @@ class DashboardActivity : AppCompatActivity() {
         repairCard2.setOnClickListener {
             Toast.makeText(this, "Repair details coming soon", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }

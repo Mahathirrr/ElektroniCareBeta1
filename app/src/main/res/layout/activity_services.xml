@@ -42,72 +42,51 @@
 
     </LinearLayout>
 
-    <ScrollView
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:id="@+id/scrollView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/services_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-        <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingVertical="8dp"
+        tools:listitem="@layout/item_service_modern" />
+
+    <!-- No Services View -->
+    <LinearLayout
+        android:id="@+id/no_services_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="32dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_vendor"
+            app:tint="#9CA3AF"
+            android:alpha="0.5"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            android:paddingBottom="16dp">
+            android:text="No Services Available"
+            android:textColor="#111827"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
 
-            <!-- Services List -->
-            <LinearLayout
-                android:id="@+id/services_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="16dp"
-                android:paddingTop="16dp">
-                
-                <!-- Services will be added here programmatically -->
-                
-            </LinearLayout>
-
-            <!-- No Services View -->
-            <LinearLayout
-                android:id="@+id/no_services_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="32dp"
-                android:visibility="gone">
-
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:src="@drawable/ic_vendor"
-                    android:tint="#9CA3AF"
-                    android:alpha="0.5"
-                    android:layout_marginBottom="16dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="No Services Available"
-                    android:textColor="#111827"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="We're currently updating our service offerings."
-                    android:textColor="#4B5563"
-                    android:textSize="14sp"
-                    android:gravity="center"/>
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="We're currently updating our service offerings."
+            android:textColor="#4B5563"
+            android:textSize="14sp"
+            android:gravity="center"/>
+    </LinearLayout>
 
     <!-- Bottom Navigation Bar -->
     <LinearLayout
