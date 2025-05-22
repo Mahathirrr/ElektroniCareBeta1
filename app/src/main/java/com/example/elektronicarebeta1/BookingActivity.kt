@@ -29,15 +29,16 @@ import java.util.Locale
 
 class BookingActivity : AppCompatActivity() {
     
-    private lateinit var serviceNameText: TextView
-    private lateinit var servicePriceText: TextView
-    private lateinit var deviceTypeSpinner: Spinner
-    private lateinit var deviceModelEdit: EditText
-    private lateinit var issueDescriptionEdit: EditText
-    private lateinit var scheduleDateButton: Button
-    private lateinit var deviceImageView: ImageView
-    private lateinit var uploadImageButton: LinearLayout
-    private lateinit var submitButton: Button
+//    private lateinit var serviceNameText: TextView // Removed, no direct equivalent
+//    private lateinit var servicePriceText: TextView // Removed, no direct equivalent
+//    private lateinit var deviceTypeSpinner: Spinner // Removed, no direct equivalent
+//    private lateinit var deviceModelEdit: EditText // Removed, no direct equivalent for device model
+    private lateinit var issueDescriptionEdit: EditText // Maps to etProblemDescription
+    private lateinit var scheduleDateLayout: LinearLayout // Was scheduleDateButton, now the layout for date picking
+    private lateinit var tvSelectedDate: TextView // New view to display the selected date text
+//    private lateinit var deviceImageView: ImageView // Removed, no direct equivalent
+    private lateinit var uploadLayout: LinearLayout // Was uploadImageButton, now the layout for upload
+    private lateinit var submitButton: Button // Maps to btnSubmitRequest
     
     private var selectedDate: Date? = null
     private var selectedImageUri: Uri? = null
@@ -52,15 +53,15 @@ class BookingActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             result.data?.data?.let { uri ->
                 selectedImageUri = uri
-                deviceImageView.setImageURI(uri)
-                deviceImageView.visibility = View.VISIBLE
+//                deviceImageView.setImageURI(uri) // Removed
+//                deviceImageView.visibility = View.VISIBLE // Removed
             }
         }
     }
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_booking)
+        setContentView(R.layout.activity_form_request)
         
         // Get service details from intent
         serviceId = intent.getStringExtra("SERVICE_ID")
@@ -74,35 +75,36 @@ class BookingActivity : AppCompatActivity() {
         }
         
         // Initialize views
-        serviceNameText = findViewById(R.id.service_name)
-        servicePriceText = findViewById(R.id.service_price)
-        deviceTypeSpinner = findViewById(R.id.device_type_spinner)
-        deviceModelEdit = findViewById(R.id.device_model_edit)
-        issueDescriptionEdit = findViewById(R.id.issue_description_edit)
-        scheduleDateButton = findViewById(R.id.schedule_date_button)
-        deviceImageView = findViewById(R.id.device_image)
-        uploadImageButton = findViewById(R.id.upload_image_area)
-        submitButton = findViewById(R.id.submit_button)
+//        serviceNameText = findViewById(R.id.service_name) // Removed
+//        servicePriceText = findViewById(R.id.service_price) // Removed
+//        deviceTypeSpinner = findViewById(R.id.device_type_spinner) // Removed
+//        deviceModelEdit = findViewById(R.id.device_model_edit) // Removed
+        issueDescriptionEdit = findViewById(R.id.etProblemDescription) // Corrected ID
+        scheduleDateLayout = findViewById(R.id.llDateLayout) // Corrected ID
+        tvSelectedDate = findViewById(R.id.tvSelectedDate) // Corrected ID
+//        deviceImageView = findViewById(R.id.device_image) // Removed
+        uploadLayout = findViewById(R.id.llUploadLayout) // Corrected ID
+        submitButton = findViewById(R.id.btnSubmitRequest) // Corrected ID
         
-        val backButton = findViewById<ImageView>(R.id.back_button)
+        val backButton = findViewById<ImageView>(R.id.ivBackArrow) // Corrected ID
         
         // Set service details
-        serviceNameText.text = serviceName
-        servicePriceText.text = "Rp ${servicePrice?.toInt()}"
+//        serviceNameText.text = serviceName // Removed
+//        servicePriceText.text = "Rp ${servicePrice?.toInt()}" // Removed
         
         // Set up device type spinner
-        val deviceTypes = arrayOf("Phone", "Laptop", "TV", "Printer", "Other")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, deviceTypes)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        deviceTypeSpinner.adapter = adapter
+//        val deviceTypes = arrayOf("Phone", "Laptop", "TV", "Printer", "Other") // Removed
+//        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, deviceTypes) // Removed
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) // Removed
+//        deviceTypeSpinner.adapter = adapter // Removed
         
         // Set up date picker
-        scheduleDateButton.setOnClickListener {
+        scheduleDateLayout.setOnClickListener { // Was scheduleDateButton
             showDatePicker()
         }
         
         // Set up image upload
-        uploadImageButton.setOnClickListener {
+        uploadLayout.setOnClickListener { // Was uploadImageButton
             openImagePicker()
         }
         
@@ -146,7 +148,7 @@ class BookingActivity : AppCompatActivity() {
     private fun updateDateButtonText() {
         val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
         selectedDate?.let {
-            scheduleDateButton.text = dateFormat.format(it)
+            tvSelectedDate.text = dateFormat.format(it) // Was scheduleDateButton, now tvSelectedDate
         }
     }
     
@@ -157,14 +159,14 @@ class BookingActivity : AppCompatActivity() {
     
     private fun submitBooking() {
         // Validate inputs
-        val deviceType = deviceTypeSpinner.selectedItem.toString()
-        val deviceModel = deviceModelEdit.text.toString().trim()
+//        val deviceType = deviceTypeSpinner.selectedItem.toString() // Removed
+//        val deviceModel = deviceModelEdit.text.toString().trim() // Removed
         val issueDescription = issueDescriptionEdit.text.toString().trim()
         
-        if (deviceModel.isEmpty()) {
-            Toast.makeText(this, "Please enter device model", Toast.LENGTH_SHORT).show()
-            return
-        }
+//        if (deviceModel.isEmpty()) { // Removed
+//            Toast.makeText(this, "Please enter device model", Toast.LENGTH_SHORT).show() // Removed
+//            return // Removed
+//        }
         
         if (issueDescription.isEmpty()) {
             Toast.makeText(this, "Please describe the issue", Toast.LENGTH_SHORT).show()
@@ -195,10 +197,10 @@ class BookingActivity : AppCompatActivity() {
             
             // Create repair request data
             val repairData: HashMap<String, Any?> = hashMapOf(
-                "deviceType" to deviceType,
-                "deviceModel" to deviceModel,
+//                "deviceType" to deviceType, // Removed
+//                "deviceModel" to deviceModel, // Removed
                 "issueDescription" to issueDescription,
-                "serviceId" to serviceId,
+                "serviceId" to serviceId, // This remains as it's passed via Intent
                 "status" to "pending_confirmation", // Changed status
                 "estimatedCost" to servicePrice,
                 "scheduledDate" to selectedDate,
@@ -237,13 +239,14 @@ class BookingActivity : AppCompatActivity() {
                     // Set up whatsapp_button's OnClickListener
                     whatsappButton.setOnClickListener {
                         val currentRepairId = repairId // Capture for use in this listener
-                        val currentDeviceType = deviceTypeSpinner.selectedItem.toString()
-                        val currentDeviceModel = deviceModelEdit.text.toString().trim()
+//                        val currentDeviceType = deviceTypeSpinner.selectedItem.toString() // Removed
+//                        val currentDeviceModel = deviceModelEdit.text.toString().trim() // Removed
                         val currentIssueDescription = issueDescriptionEdit.text.toString().trim()
 
+                        // Construct message without deviceType and deviceModel
                         val message = "Hello, I've submitted a repair request through ElektroniCare.\n" +
                                       "My Repair ID: $currentRepairId\n" +
-                                      "Device: $currentDeviceType - $currentDeviceModel\n" +
+//                                      "Device: $currentDeviceType - $currentDeviceModel\n" + // Removed
                                       "Issue: $currentIssueDescription\n\n" +
                                       "Please provide assistance."
                         
