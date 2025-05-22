@@ -40,4 +40,9 @@
         <item name="android:background">@drawable/button_background_white</item> <!-- Using white background with purple stroke -->
         <!-- Note: For social buttons with logos, the layout will still need an ImageView next to TextView -->
     </style>
+
+    <style name="AppTheme.Button.Destructive" parent="AppTheme.Button">
+        <item name="android:background">@drawable/button_background_destructive</item>
+        <item name="android:textColor">@color/destructive_red_fg</item>
+    </style>
 </resources>

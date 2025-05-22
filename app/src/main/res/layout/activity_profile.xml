@@ -10,244 +10,257 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Header -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#7C3AED"
-        android:orientation="horizontal"
-        android:paddingHorizontal="22dp"
-        android:paddingVertical="16dp">
-
-        <ImageView
-            android:id="@+id/back_button"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_arrow_left"
-            android:tint="#FFFFFF"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="2dp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="16dp"
-            android:text="My Profile"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <ScrollView
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:id="@+id/scrollView"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            android:paddingBottom="16dp">
 
-            <!-- Profile Header -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Header -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="24dp">
+                android:background="#7C3AED"
+                android:orientation="horizontal"
+                android:paddingHorizontal="22dp"
+                android:paddingVertical="16dp"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp">
-
-                    <ImageView
-                        android:id="@+id/profile_image"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:src="@drawable/avatar_circle"
-                        android:background="@drawable/circle_background"
-                        android:padding="2dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
-                        
-                    <ImageView
-                        android:id="@+id/edit_photo_icon"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_camera"
-                        app:tint="@color/white"
-                        android:background="@drawable/circle_purple_bg"
-                        android:padding="6dp"
-                        app:layout_constraintBottom_toBottomOf="@id/profile_image"
-                        app:layout_constraintEnd_toEndOf="@id/profile_image"
-                        android:layout_marginEnd="-4dp"
-                        android:layout_marginBottom="-2dp"
-                         />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/text_input_layout_user_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    app:boxBackgroundMode="none"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_text_user_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Full Name"
-                        tools:text="John Doe"
-                        android:textColor="#111827"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:background="@android:color/transparent"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
-                        android:paddingTop="12dp"
-                        android:paddingBottom="12dp"
-                        android:gravity="center_horizontal"
-                        android:inputType="textPersonName"
-                        android:imeOptions="actionNext"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                <ImageView
+                    android:id="@+id/back_button"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_arrow_left"
+                    android:tint="#FFFFFF"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="2dp"/>
 
                 <TextView
-                    android:id="@+id/user_email"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    tools:text="john.doe@example.com"
-                    android:textColor="#4B5563"
-                    android:textSize="14sp"/>
-            </LinearLayout>
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:text="My Profile"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-            <!-- Editable Profile Information -->
-            <com.google.android.material.card.MaterialCardView
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="2dp">
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingBottom="16dp">
 
+                <!-- Profile Header -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:gravity="center"
+                    android:padding="24dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp">
+
+                        <ImageView
+                            android:id="@+id/profile_image"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:src="@drawable/ic_account_circle_placeholder"
+                            android:background="@drawable/circle_background"
+                            android:padding="2dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+                            
+                        <ImageView
+                            android:id="@+id/edit_photo_icon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_camera"
+                            app:tint="@color/icon_grey_color"
+                            android:background="@drawable/circle_purple_bg"
+                            android:padding="6dp"
+                            app:layout_constraintBottom_toBottomOf="@id/profile_image"
+                            app:layout_constraintEnd_toEndOf="@id/profile_image"
+                            android:layout_marginEnd="-4dp"
+                            android:layout_marginBottom="-2dp"
+                             />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/text_input_layout_phone"
+                        android:id="@+id/text_input_layout_user_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        android:layout_marginBottom="4dp"
+                        app:boxBackgroundMode="none"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edit_text_phone"
+                            android:id="@+id/edit_text_user_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Phone Number"
-                            android:inputType="phone"
+                            android:hint="Full Name"
+                            tools:text="John Doe"
+                            android:textColor="#111827"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:background="@android:color/transparent"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="12dp"
+                            android:gravity="center_horizontal"
+                            android:inputType="textPersonName"
                             android:imeOptions="actionNext"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/text_input_layout_address"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/user_email"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edit_text_address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Address"
-                            android:inputType="textMultiLine"
-                            android:minLines="2"
-                            android:gravity="top"
-                            android:imeOptions="actionDone"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                        tools:text="john.doe@example.com"
+                        android:textColor="#4B5563"
+                        android:textSize="14sp"/>
+                </LinearLayout>
 
-                    <!-- Date Joined Display -->
+                <!-- Editable Profile Information -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="2dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="16dp"
-                        android:paddingVertical="8dp"
-                        android:gravity="center_vertical">
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_calender"
-                            app:tint="?attr/colorPrimary"
-                            android:layout_marginEnd="16dp"/>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/text_input_layout_phone"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_text_phone"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Date Joined"
-                                android:textSize="12sp"
-                                android:textColor="?android:attr/textColorSecondary"/>
+                                android:hint="Phone Number"
+                                android:inputType="phone"
+                                android:imeOptions="actionNext"/>
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                            <TextView
-                                android:id="@+id/user_date_joined"
-                                android:layout_width="wrap_content"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/text_input_layout_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_text_address"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                tools:text="January 1, 2023"
-                                android:textSize="14sp"
-                                android:textColor="?android:attr/textColorPrimary"/>
+                                android:hint="Address"
+                                android:inputType="textMultiLine"
+                                android:minLines="2"
+                                android:gravity="top"
+                                android:imeOptions="actionDone"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Date Joined Display -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="16dp"
+                            android:paddingVertical="8dp"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_calender"
+                                app:tint="?attr/colorPrimary"
+                                android:layout_marginEnd="16dp"/>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Date Joined"
+                                    android:textSize="12sp"
+                                    android:textColor="?android:attr/textColorSecondary"/>
+
+                                <TextView
+                                    android:id="@+id/user_date_joined"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="January 1, 2023"
+                                    android:textSize="14sp"
+                                    android:textColor="?android:attr/textColorPrimary"/>
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
-            <!-- Buttons -->
-            <ProgressBar
-                android:id="@+id/profile_save_progress_bar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:layout_marginBottom="8dp"/>
+                <!-- Buttons -->
+                <ProgressBar
+                    android:id="@+id/profile_save_progress_bar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginBottom="8dp"/>
 
-            <Button
-                android:id="@+id/save_profile_button"
-                style="@style/AppTheme.Button.Primary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Save Changes"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginBottom="12dp"/>
+                <Button
+                    android:id="@+id/save_profile_button"
+                    style="@style/AppTheme.Button.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Save Changes"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="12dp"/>
 
-            <Button
-                android:id="@+id/logout_button"
-                style="@style/AppTheme.Button.Secondary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Logout"
-                android:layout_marginHorizontal="16dp"/>
+                <Button
+                    android:id="@+id/logout_button"
+                    style="@style/AppTheme.Button.Destructive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Logout"
+                    android:layout_marginHorizontal="16dp"/>
 
-        </LinearLayout>
-    </ScrollView>
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <!-- Bottom Navigation Bar -->
     <LinearLayout
