@@ -4,59 +4,121 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="24dp"
+    android:padding="32dp"
     android:gravity="center_horizontal"
-    android:background="@android:color/white">
+    android:background="@drawable/dialog_background">
 
-    <ImageView
-        android:id="@+id/success_icon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/ic_check"
-        app:tint="#4CAF50" 
-        android:layout_marginBottom="16dp"
-        android:contentDescription="Success Icon"/>
+    <!-- Success Icon dengan background circular -->
+    <FrameLayout
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="24dp">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/circle_background_green_light" />
+
+        <ImageView
+            android:id="@+id/success_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_check"
+            app:tint="#4CAF50"
+            android:contentDescription="Success Icon"/>
+    </FrameLayout>
+
+    <!-- Main Title -->
+    <TextView
+        android:id="@+id/success_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Request Submitted!"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Subtitle Message -->
     <TextView
         android:id="@+id/success_message_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Repair Request Submitted!"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/text_dark"
-        android:gravity="center"
-        android:layout_marginBottom="8dp"/>
-
-    <TextView
-        android:id="@+id/repair_id_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Your Repair ID: 12345XYZ"
+        android:text="Your repair request has been successfully submitted"
         android:textSize="16sp"
-        android:textColor="@color/text_grey"
+        android:textColor="?android:attr/textColorSecondary"
         android:gravity="center"
-        android:layout_marginBottom="24dp"/>
+        android:lineSpacingExtra="4dp"
+        android:layout_marginBottom="16dp"/>
 
-    <Button
-        android:id="@+id/whatsapp_button"
+    <!-- Repair ID Card -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chat on WhatsApp"
-        android:background="@drawable/button_background_purple"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="8dp"
-        style="@style/Widget.MaterialComponents.Button"
-        android:paddingVertical="12dp"/>
+        android:orientation="vertical"
+        android:background="@drawable/card_background_light"
+        android:padding="16dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="center">
 
-    <Button
-        android:id="@+id/done_button"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Repair ID"
+            android:textSize="12sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textAllCaps="true"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/repair_id_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="12345XYZ"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/purple_primary"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <!-- Action Buttons -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Done"
-        android:background="@drawable/button_outline"
-        android:textColor="@color/purple_primary"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:paddingVertical="12dp"/>
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Primary Action Button -->
+        <Button
+            android:id="@+id/whatsapp_button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Chat on WhatsApp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_whatsapp_background"
+            android:layout_marginBottom="12dp"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:drawableStart="@drawable/ic_whatsapp"
+            android:drawablePadding="12dp"
+            android:gravity="center"/>
+
+        <!-- Secondary Action Button -->
+        <Button
+            android:id="@+id/done_button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Done"
+            android:textSize="16sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:background="@drawable/button_secondary_background"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"/>
+    </LinearLayout>
 
 </LinearLayout>

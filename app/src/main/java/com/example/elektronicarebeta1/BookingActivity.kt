@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -35,7 +36,7 @@ class BookingActivity : AppCompatActivity() {
     private lateinit var issueDescriptionEdit: EditText
     private lateinit var scheduleDateButton: Button
     private lateinit var deviceImageView: ImageView
-    private lateinit var uploadImageButton: Button
+    private lateinit var uploadImageButton: LinearLayout
     private lateinit var submitButton: Button
     
     private var selectedDate: Date? = null
@@ -80,7 +81,7 @@ class BookingActivity : AppCompatActivity() {
         issueDescriptionEdit = findViewById(R.id.issue_description_edit)
         scheduleDateButton = findViewById(R.id.schedule_date_button)
         deviceImageView = findViewById(R.id.device_image)
-        uploadImageButton = findViewById(R.id.upload_image_button)
+        uploadImageButton = findViewById(R.id.upload_image_area)
         submitButton = findViewById(R.id.submit_button)
         
         val backButton = findViewById<ImageView>(R.id.back_button)

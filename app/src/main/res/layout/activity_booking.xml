@@ -226,7 +226,7 @@
                         android:background="@drawable/edit_text_background"
                         android:paddingHorizontal="12dp"
                         android:text="Select Date"
-                        android:textColor="@color/purple_primary"
+                        android:textColor="#FAFAFA"
                         android:textAllCaps="false"
                         android:gravity="start|center_vertical"
                         android:layout_marginBottom="16dp"/>

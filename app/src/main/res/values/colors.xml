@@ -31,4 +31,5 @@
     <color name="text_grey">#555555</color>
     <color name="text_light_grey">#888888</color>
     <color name="star_yellow">#FFD700</color>
+    <color name="red_500">#F44336</color>
 </resources>

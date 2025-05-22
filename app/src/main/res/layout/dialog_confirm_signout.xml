@@ -3,49 +3,86 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center_horizontal">
+    android:padding="32dp"
+    android:gravity="center_horizontal"
+    android:background="@drawable/dialog_background">
 
-    <ImageView
-        android:id="@+id/dialog_icon"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:src="@drawable/ic_logout_dialog"
-        app:tint="@color/icon_grey_color"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="Confirmation Icon"/>
+    <!-- Icon dengan background circular -->
+    <FrameLayout
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="24dp">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/circle_background_red_light" />
+
+        <ImageView
+            android:id="@+id/dialog_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_logout_dialog"
+            app:tint="@color/red_500"
+            android:contentDescription="Logout Icon"/>
+    </FrameLayout>
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Out"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Message -->
     <TextView
         android:id="@+id/dialog_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Are you sure you want to sign out?"
+        android:text="Are you sure you want to sign out of your account?"
         android:textSize="16sp"
-        android:textColor="?android:attr/textColorPrimary"
+        android:textColor="?android:attr/textColorSecondary"
         android:gravity="center"
-        android:layout_marginBottom="24dp"/>
+        android:lineSpacingExtra="4dp"
+        android:layout_marginBottom="32dp"/>
 
+    <!-- Buttons dengan full width -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end">
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <Button
-            android:id="@+id/button_dialog_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancel"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:textColor="@color/purple_primary"
-            android:layout_marginEnd="8dp"/>
-
+        <!-- Primary Action Button -->
         <Button
             android:id="@+id/button_dialog_signout"
-            style="@style/AppTheme.Button.Destructive"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sign Out" />
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Sign Out"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_destructive_background"
+            android:layout_marginBottom="12dp"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"/>
+
+        <!-- Secondary Action Button -->
+        <Button
+            android:id="@+id/button_dialog_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Cancel"
+            android:textSize="16sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:background="@drawable/button_secondary_background"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"/>
     </LinearLayout>
 
 </LinearLayout>

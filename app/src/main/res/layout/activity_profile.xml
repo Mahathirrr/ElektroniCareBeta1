@@ -91,7 +91,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"/>
-                            
+
                         <ImageView
                             android:id="@+id/edit_photo_icon"
                             android:layout_width="30dp"
@@ -240,22 +240,37 @@
                     android:visibility="gone"
                     android:layout_marginBottom="8dp"/>
 
-                <Button
-                    android:id="@+id/save_profile_button"
-                    style="@style/AppTheme.Button.Primary"
+                <!-- Action Buttons -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Save Changes"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginBottom="12dp"/>
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="20dp">
 
-                <Button
-                    android:id="@+id/logout_button"
-                    style="@style/AppTheme.Button.Destructive"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Logout"
-                    android:layout_marginHorizontal="16dp"/>
+                    <Button
+                        android:id="@+id/save_profile_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:text="Save Changes"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_primary_background"
+                        android:layout_marginBottom="12dp"
+                        android:elevation="0dp"
+                        android:stateListAnimator="@null"/>
+
+                    <Button
+                        android:id="@+id/logout_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:text="Sign Out"
+                        android:textSize="16sp"
+                        android:textColor="#EF4444"
+                        android:background="@drawable/button_danger_outline"
+                        android:elevation="0dp"
+                        android:stateListAnimator="@null"/>
+                </LinearLayout>
 
             </LinearLayout>
         </ScrollView>
