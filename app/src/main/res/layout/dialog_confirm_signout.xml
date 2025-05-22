@@ -10,8 +10,8 @@
         android:id="@+id/dialog_icon"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:src="@drawable/ic_important"
-        app:tint="?android:attr/textColorHint"
+        android:src="@drawable/ic_logout_dialog"
+        app:tint="@color/icon_grey_color"
         android:layout_marginBottom="16dp"
         android:contentDescription="Confirmation Icon"/>
 
@@ -36,17 +36,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:textColor="@color/purple_primary"
             android:layout_marginEnd="8dp"/>
 
         <Button
             android:id="@+id/button_dialog_signout"
+            style="@style/AppTheme.Button.Destructive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Out"
-            android:background="@drawable/button_background_purple"
-            android:textColor="@color/white"
-            style="@style/Widget.MaterialComponents.Button"/>
+            android:text="Sign Out" />
     </LinearLayout>
 
 </LinearLayout>

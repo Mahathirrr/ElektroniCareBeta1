@@ -10,26 +10,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:id="@+id/scrollView"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-        <LinearLayout
+
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="vertical">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:background="@android:color/transparent"
+            app:elevation="0dp"> 
 
-            <!-- Header Section with Purple Background -->
+            <!-- Header Section with Purple Background + Categories Card -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipChildren="false"
-                android:clipToPadding="false">
+                android:clipToPadding="false"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="90dp"
+                    android:layout_marginTop="90dp" 
                     android:layout_marginHorizontal="20dp"
                     android:background="@drawable/rounded_card"
                     android:elevation="8dp"
@@ -127,7 +127,7 @@
                                 android:src="@drawable/ic_phone_outline"
                                 android:background="@drawable/circle_purple_bg"
                                 android:padding="8dp"
-                                android:tint="#7C3AED"/>
+                                app:tint="#7C3AED"/> 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
                                 android:src="@drawable/ic_laptop"
                                 android:background="@drawable/circle_purple_bg"
                                 android:padding="8dp"
-                                android:tint="#7C3AED"/>
+                                app:tint="#7C3AED"/> 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -171,7 +171,7 @@
                                 android:src="@drawable/ic_tv"
                                 android:background="@drawable/circle_purple_bg"
                                 android:padding="8dp"
-                                android:tint="#7C3AED"/>
+                                app:tint="#7C3AED"/> 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
                                 android:src="@drawable/ic_printer"
                                 android:background="@drawable/circle_purple_bg"
                                 android:padding="8dp"
-                                android:tint="#7C3AED"/>
+                                app:tint="#7C3AED"/> 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -205,297 +205,316 @@
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-            <!-- Recent Repairs Section -->
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            
             <LinearLayout
+                android:id="@+id/content_wrapper_ll" 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="24dp"
-                android:layout_marginHorizontal="22dp"
-                android:layout_marginBottom="16dp">
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Recent Repairs"
-                    android:textColor="#111827"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
-
+                <!-- Recent Repairs Section -->
                 <LinearLayout
-                    android:id="@+id/view_all_recent"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical"
+                    android:layout_marginTop="24dp" 
+                    android:layout_marginHorizontal="22dp"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Recent Repairs"
+                        android:textColor="#111827"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:id="@+id/view_all_recent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:src="@drawable/ic_recent"
+                            android:layout_marginEnd="4dp"
+                            app:tint="#7C3AED" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="View All"
+                            android:textColor="#7C3AED"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- iPhone Repair Card -->
+                <LinearLayout
+                    android:id="@+id/repair_card_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/rounded_card"
+                    android:elevation="2dp"
+                    android:orientation="vertical"
+                    android:padding="16dp"
                     android:clickable="true"
                     android:focusable="true">
 
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:src="@drawable/ic_recent"
-                        android:layout_marginEnd="4dp"
-                        app:tint="#7C3AED" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="iPhone 13"
+                            android:textColor="#111827"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rp750,000"
+                            android:textColor="#7C3AED"
+                            android:textSize="13sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="View All"
-                        android:textColor="#7C3AED"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
+                        android:text="Screen Replacement"
+                        android:textColor="#4B5563"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:src="@drawable/ic_calender"
+                            app:tint="#4B5563"
+                            android:layout_marginEnd="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="March 15, 2025"
+                            android:textColor="#4B5563"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:src="@drawable/ic_location_pin"
+                            app:tint="#4B5563"
+                            android:layout_marginEnd="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fresh Teknik Service Center"
+                            android:textColor="#4B5563"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Completed"
+                            android:textColor="#15803D"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:background="@drawable/status_completed_bg"
+                            android:paddingVertical="3dp"
+                            android:paddingHorizontal="10dp"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="View Details"
+                            android:textColor="#7C3AED"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
                 </LinearLayout>
+
+                <!-- MacBook Repair Card -->
+                <LinearLayout
+                    android:id="@+id/repair_card_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/rounded_card"
+                    android:elevation="2dp"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="MacBook Pro"
+                            android:textColor="#111827"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rp1,200,000"
+                            android:textColor="#7C3AED"
+                            android:textSize="13sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Battery Service"
+                        android:textColor="#4B5563"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:src="@drawable/ic_calender"
+                            app:tint="#4B5563"
+                            android:layout_marginEnd="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="March 10, 2025"
+                            android:textColor="#4B5563"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:src="@drawable/ic_location_pin"
+                            app:tint="#4B5563"
+                            android:layout_marginEnd="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tech Solutions"
+                            android:textColor="#4B5563"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="In-progress"
+                            android:textColor="#1D4ED8"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:background="@drawable/status_inprogress_bg"
+                            android:paddingVertical="3dp"
+                            android:paddingHorizontal="10dp"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="View Details"
+                            android:textColor="#7C3AED"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
+        </ScrollView>
 
-            <!-- iPhone Repair Card -->
-            <LinearLayout
-                android:id="@+id/repair_card_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/rounded_card"
-                android:elevation="2dp"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:clickable="true"
-                android:focusable="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="4dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="iPhone 13"
-                        android:textColor="#111827"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Rp750,000"
-                        android:textColor="#7C3AED"
-                        android:textSize="13sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Screen Replacement"
-                    android:textColor="#4B5563"
-                    android:textSize="13sp"
-                    android:layout_marginBottom="10dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="8dp">
-
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:src="@drawable/ic_calender"
-                        android:tint="#4B5563"
-                        android:layout_marginEnd="8dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="March 15, 2025"
-                        android:textColor="#4B5563"
-                        android:textSize="13sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
-
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:src="@drawable/ic_location_pin"
-                        android:tint="#4B5563"
-                        android:layout_marginEnd="8dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fresh Teknik Service Center"
-                        android:textColor="#4B5563"
-                        android:textSize="13sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Completed"
-                        android:textColor="#15803D"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:background="@drawable/status_completed_bg"
-                        android:paddingVertical="3dp"
-                        android:paddingHorizontal="10dp"/>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="View Details"
-                        android:textColor="#7C3AED"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- MacBook Repair Card -->
-            <LinearLayout
-                android:id="@+id/repair_card_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/rounded_card"
-                android:elevation="2dp"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:clickable="true"
-                android:focusable="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="4dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="MacBook Pro"
-                        android:textColor="#111827"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Rp1,200,000"
-                        android:textColor="#7C3AED"
-                        android:textSize="13sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Battery Service"
-                    android:textColor="#4B5563"
-                    android:textSize="13sp"
-                    android:layout_marginBottom="10dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="8dp">
-
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:src="@drawable/ic_calender"
-                        android:tint="#4B5563"
-                        android:layout_marginEnd="8dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="March 10, 2025"
-                        android:textColor="#4B5563"
-                        android:textSize="13sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
-
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:src="@drawable/ic_location_pin"
-                        android:tint="#4B5563"
-                        android:layout_marginEnd="8dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tech Solutions"
-                        android:textColor="#4B5563"
-                        android:textSize="13sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="In-progress"
-                        android:textColor="#1D4ED8"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:background="@drawable/status_inprogress_bg"
-                        android:paddingVertical="3dp"
-                        android:paddingHorizontal="10dp"/>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="View Details"
-                        android:textColor="#7C3AED"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <!-- Bottom Navigation Bar -->
     <LinearLayout
@@ -520,7 +539,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_home"
-                android:tint="#7C3AED"/>
+                app:tint="#7C3AED"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -545,7 +564,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_history"
-                android:tint="#9CA3AF"/>
+                app:tint="#9CA3AF"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -570,7 +589,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_vendor"
-                android:tint="#9CA3AF"/>
+                app:tint="#9CA3AF"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -595,7 +614,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_person"
-                android:tint="#9CA3AF"/>
+                app:tint="#9CA3AF"/>
 
             <TextView
                 android:layout_width="wrap_content"

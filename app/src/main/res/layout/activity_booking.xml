@@ -10,295 +10,326 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Header -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#7C3AED"
-        android:orientation="horizontal"
-        android:paddingHorizontal="22dp"
-        android:paddingVertical="16dp">
-
-        <ImageView
-            android:id="@+id/back_button"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_arrow_left"
-            android:tint="#FFFFFF"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="2dp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="16dp"
-            android:text="Book Service"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <ScrollView
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:id="@+id/scrollView"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-        <LinearLayout
+
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <!-- Service Information Card -->
+            <!-- Header -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/rounded_card"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Service Information"
-                    android:textColor="#111827"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="12dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Service:"
-                        android:textColor="#4B5563"
-                        android:textSize="14sp"
-                        android:layout_marginEnd="8dp"/>
-
-                    <TextView
-                        android:id="@+id/service_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Screen Replacement"
-                        android:textColor="#111827"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Estimated Price:"
-                        android:textColor="#4B5563"
-                        android:textSize="14sp"
-                        android:layout_marginEnd="8dp"/>
-
-                    <TextView
-                        android:id="@+id/service_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Rp 750.000"
-                        android:textColor="#111827"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Device Information Form -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/rounded_card"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Device Information"
-                    android:textColor="#111827"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="16dp"/>
-
-                <!-- Device Type -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Device Type"
-                    android:textColor="#4B5563"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="4dp"/>
-
-                <Spinner
-                    android:id="@+id/device_type_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/edit_text_background"
-                    android:paddingHorizontal="12dp"
-                    android:layout_marginBottom="16dp"/>
-
-                <!-- Device Model -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Device Model"
-                    android:textColor="#4B5563"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="4dp"/>
-
-                <EditText
-                    android:id="@+id/device_model_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/edit_text_background"
-                    android:paddingHorizontal="12dp"
-                    android:hint="e.g. iPhone 13, Samsung S21"
-                    android:inputType="text"
-                    android:layout_marginBottom="16dp"/>
-
-                <!-- Issue Description -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Issue Description"
-                    android:textColor="#4B5563"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="4dp"/>
-
-                <EditText
-                    android:id="@+id/issue_description_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="@drawable/edit_text_background"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="8dp"
-                    android:gravity="top"
-                    android:hint="Describe the issue with your device"
-                    android:inputType="textMultiLine"
-                    android:layout_marginBottom="16dp"/>
-
-                <!-- Schedule Date -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Preferred Service Date"
-                    android:textColor="#4B5563"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="4dp"/>
-
-                <Button
-                    android:id="@+id/schedule_date_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/edit_text_background"
-                    android:paddingHorizontal="12dp"
-                    android:text="Select Date"
-                    android:textColor="#4B5563"
-                    android:textAllCaps="false"
-                    android:gravity="start|center_vertical"
-                    android:layout_marginBottom="16dp"/>
-
-                <!-- Device Image -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Device Image (Optional)"
-                    android:textColor="#4B5563"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="4dp"/>
-
-                <Button
-                    android:id="@+id/upload_image_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/button_outline"
-                    android:text="Upload Image"
-                    android:textColor="#7C3AED"
-                    android:textAllCaps="false"
-                    android:layout_marginBottom="16dp"/>
+                android:background="#7C3AED"
+                android:orientation="horizontal"
+                android:paddingHorizontal="22dp"
+                android:paddingVertical="16dp"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
 
                 <ImageView
-                    android:id="@+id/device_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/edit_text_background"
-                    android:visibility="gone"
-                    android:layout_marginBottom="16dp"/>
+                    android:id="@+id/back_button"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_arrow_left"
+                    android:tint="#FFFFFF"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="2dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:text="Book Service"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-            <!-- Notice Section -->
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:orientation="vertical"
-                android:background="@drawable/rounded_card"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
+                android:padding="16dp">
 
+                <!-- Service Information Card -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="8dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_important"
-                        android:tint="#DD6B20"
-                        android:layout_marginEnd="8dp"/>
+                    android:orientation="vertical"
+                    android:background="@drawable/rounded_card"
+                    android:padding="16dp"
+                    android:layout_marginBottom="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Important Notice"
-                        android:textColor="#DD6B20"
+                        android:text="Service Information"
+                        android:textColor="#111827"
                         android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:layout_marginBottom="12dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Service:"
+                            android:textColor="#4B5563"
+                            android:textSize="14sp"
+                            android:layout_marginEnd="8dp"/>
+
+                        <TextView
+                            android:id="@+id/service_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Screen Replacement"
+                            android:textColor="#111827"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Estimated Price:"
+                            android:textColor="#4B5563"
+                            android:textSize="14sp"
+                            android:layout_marginEnd="8dp"/>
+
+                        <TextView
+                            android:id="@+id/service_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rp 750.000"
+                            android:textColor="#111827"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
                 </LinearLayout>
 
-                <TextView
+                <!-- Device Information Form -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="A service fee of Rp85,000 will be charged for inspection. This amount will be deducted from the final service cost if you proceed with the repair."
-                    android:textColor="#4B5563"
-                    android:textSize="14sp"/>
+                    android:orientation="vertical"
+                    android:background="@drawable/rounded_card"
+                    android:padding="16dp"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Device Information"
+                        android:textColor="#111827"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="16dp"/>
+
+                    <!-- Device Type -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Device Type"
+                        android:textColor="#4B5563"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="4dp"/>
+
+                    <Spinner
+                        android:id="@+id/device_type_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@drawable/edit_text_background"
+                        android:paddingHorizontal="12dp"
+                        android:layout_marginBottom="16dp"/>
+
+                    <!-- Device Model -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Device Model"
+                        android:textColor="#4B5563"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="4dp"/>
+
+                    <EditText
+                        android:id="@+id/device_model_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@drawable/edit_text_background"
+                        android:paddingHorizontal="12dp"
+                        android:hint="e.g. iPhone 13, Samsung S21"
+                        android:inputType="text"
+                        android:layout_marginBottom="16dp"/>
+
+                    <!-- Issue Description -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Issue Description"
+                        android:textColor="#4B5563"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="4dp"/>
+
+                    <EditText
+                        android:id="@+id/issue_description_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:background="@drawable/edit_text_background"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp"
+                        android:gravity="top"
+                        android:hint="Describe the issue with your device"
+                        android:inputType="textMultiLine"
+                        android:layout_marginBottom="16dp"/>
+
+                    <!-- Schedule Date -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Preferred Service Date"
+                        android:textColor="#4B5563"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="4dp"/>
+
+                    <Button
+                        android:id="@+id/schedule_date_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@drawable/edit_text_background"
+                        android:paddingHorizontal="12dp"
+                        android:text="Select Date"
+                        android:textColor="@color/purple_primary"
+                        android:textAllCaps="false"
+                        android:gravity="start|center_vertical"
+                        android:layout_marginBottom="16dp"/>
+
+                    <!-- Device Image -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Device Image (Optional)"
+                        android:textColor="#4B5563"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="4dp"/>
+
+                    <LinearLayout
+                        android:id="@+id/upload_image_area"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/dashed_border_purple"
+                        android:padding="24dp"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_marginBottom="16dp">
+
+                        <ImageView
+                            android:id="@+id/upload_icon"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/ic_camera_upload_area"
+                            android:layout_marginBottom="8dp"/>
+
+                        <TextView
+                            android:id="@+id/upload_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Upload Device Image"
+                            android:textColor="@color/purple_primary"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/device_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/edit_text_background"
+                        android:visibility="gone"
+                        android:layout_marginBottom="16dp"/>
+
+                </LinearLayout>
+
+                <!-- Notice Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/rounded_card"
+                    android:padding="16dp"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_important"
+                            android:tint="#DD6B20"
+                            android:layout_marginEnd="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Important Notice"
+                            android:textColor="#DD6B20"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="A service fee of Rp85,000 will be charged for inspection. This amount will be deducted from the final service cost if you proceed with the repair."
+                        android:textColor="#4B5563"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
+                <!-- Submit Button -->
+                <Button
+                    android:id="@+id/submit_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Submit Booking"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/button_background_purple"
+                    android:padding="12dp"
+                    android:layout_marginBottom="24dp"/>
+
             </LinearLayout>
-
-            <!-- Submit Button -->
-            <Button
-                android:id="@+id/submit_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Submit Booking"
-                android:textColor="#FFFFFF"
-                android:background="@drawable/button_background_purple"
-                android:padding="12dp"
-                android:layout_marginBottom="24dp"/>
-
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>
