@@ -91,6 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:id="@+id/takePhotoLayout"
                     android:background="@drawable/bg_dashed_border"
                     android:padding="24dp"
                     android:layout_marginEnd="8dp"
@@ -191,6 +192,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:background="@drawable/bg_rounded_input"
+                    android:id="@+id/llTimeLayout"
                     android:padding="12dp"
                     android:layout_marginStart="8dp"
                     android:orientation="horizontal">
@@ -205,6 +207,7 @@
                         android:textColor="#000000"
                         android:textSize="14sp"
                         android:layout_height="wrap_content"
+                        android:id="@+id/tvSelectedTime"
                         android:layout_width="wrap_content"
                         android:text="--:-- --" />
                 </LinearLayout>
