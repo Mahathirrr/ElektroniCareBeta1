@@ -212,16 +212,12 @@
             <!-- Save Button -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_save"
+                style="@style/AppTheme.Button.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="22dp"
                 android:layout_marginBottom="24dp"
-                android:background="@drawable/button_background_purple"
-                android:paddingVertical="14dp"
-                android:text="Save Changes"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp" />
+                android:text="Save Changes" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
