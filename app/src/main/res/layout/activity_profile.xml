@@ -231,24 +231,20 @@
 
             <Button
                 android:id="@+id/save_profile_button"
+                style="@style/AppTheme.Button.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Save Changes"
-                android:textColor="#FFFFFF"
-                android:background="@drawable/button_background_purple"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginBottom="12dp"
-                android:padding="12dp"/>
+                android:layout_marginBottom="12dp"/>
 
             <Button
                 android:id="@+id/logout_button"
+                style="@style/AppTheme.Button.Secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Logout"
-                android:textColor="#7C3AED"
-                android:background="@drawable/button_outline"
-                android:layout_marginHorizontal="16dp"
-                android:padding="12dp"/>
+                android:layout_marginHorizontal="16dp"/>
 
         </LinearLayout>
     </ScrollView>
