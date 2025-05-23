@@ -102,7 +102,7 @@ class HistoryActivity : AppCompatActivity() {
         serviceTypeText.text = repair.issueDescription
         
         val dateFormat = SimpleDateFormat("MMMM d, yyyy", Locale.getDefault())
-        val dateString = repair.scheduledDate?.let { dateFormat.format(it) } ?: "Not scheduled"
+        val dateString = repair.appointmentTimestamp?.let { dateFormat.format(it) } ?: "Not scheduled"
         dateText.text = dateString
         
         locationText.text = repair.location ?: "Not specified"
