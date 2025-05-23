@@ -13,7 +13,7 @@ data class Repair(
     val technicianId: String? = null,
     val status: String,
     val estimatedCost: Double? = null,
-    val scheduledDate: Date? = null,
+    val appointmentTimestamp: Date? = null,
     val completedDate: Date? = null,
     val location: String? = null,
     val createdAt: Date? = null
@@ -30,7 +30,7 @@ data class Repair(
                 val technicianId = document.getString("technicianId")
                 val status = document.getString("status") ?: "pending"
                 val estimatedCost = document.getDouble("estimatedCost")
-                val scheduledDate = document.getDate("scheduledDate")
+                val appointmentTimestamp = document.getDate("appointmentTimestamp")
                 val completedDate = document.getDate("completedDate")
                 val location = document.getString("location")
                 val createdAt = document.getDate("createdAt")
@@ -45,7 +45,7 @@ data class Repair(
                     technicianId = technicianId,
                     status = status,
                     estimatedCost = estimatedCost,
-                    scheduledDate = scheduledDate,
+                    appointmentTimestamp = appointmentTimestamp,
                     completedDate = completedDate,
                     location = location,
                     createdAt = createdAt
@@ -66,7 +66,7 @@ data class Repair(
             "technicianId" to technicianId,
             "status" to status,
             "estimatedCost" to estimatedCost,
-            "scheduledDate" to scheduledDate,
+            "appointmentTimestamp" to appointmentTimestamp,
             "completedDate" to completedDate,
             "location" to location,
             "createdAt" to createdAt

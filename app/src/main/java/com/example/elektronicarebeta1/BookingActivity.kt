@@ -233,8 +233,7 @@ class BookingActivity : AppCompatActivity() {
                 "serviceId" to serviceId,
                 "status" to "pending_confirmation",
                 "estimatedCost" to servicePrice,
-                "scheduledDate" to selectedDate,
-                "scheduledTime" to calendar.time,
+                "appointmentTimestamp" to calendar.time,
                 "location" to "ElektroniCare Service Center",
                 "technicianEmail" to "agusseptiawanasep@gmail.com"
             )

@@ -155,9 +155,6 @@ object FirebaseManager {
             // Get download URL
             val downloadUrl = storageRef.downloadUrl.await().toString()
             
-            // Update user profile with the image URL
-            updateUserData(mapOf("profileImageUrl" to downloadUrl))
-            
             downloadUrl
         } catch (e: Exception) {
             Log.e(TAG, "Error uploading profile image", e)

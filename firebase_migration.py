@@ -302,7 +302,62 @@ def main():
     data = create_mock_data()
     
     # Migrate data to Firebase
-    migrate_data(db, data, args.user_id)
+    # migrate_data(db, data, args.user_id) # Commented out to fit the new structure
+
+    if args.migrate_repairs:
+        migrate_repairs_to_appointment_timestamp(db)
+    elif args.user_id: # This implies seeding data
+        # Create mock data
+        data = create_mock_data()
+        # Migrate data to Firebase
+        migrate_data(db, data, args.user_id)
+    else:
+        # Instructions if no specific action is chosen, or print help
+        parser.print_help()
+        print("\nPlease specify an action: --migrate-repairs to migrate existing repairs, or --user-id to seed new data.")
+
+def migrate_repairs_to_appointment_timestamp(db):
+    """Migrates existing repair documents to use appointmentTimestamp."""
+    print("Starting repair data migration to appointmentTimestamp...")
+    repairs_ref = db.collection("repairs")
+    docs = repairs_ref.stream() # Use stream() for potentially large collections
+
+    processed_count = 0
+    migrated_count = 0
+
+    for doc in docs:
+        processed_count += 1
+        data = doc.to_dict()
+
+        if data.get("appointmentTimestamp") is not None:
+            print(f"  Document {doc.id} already has appointmentTimestamp. Skipping.")
+            continue
+
+        scheduled_time = data.get("scheduledTime")
+        scheduled_date = data.get("scheduledDate")
+        new_timestamp_value = None
+
+        # Check if scheduled_time is a valid timestamp
+        if scheduled_time is not None and isinstance(scheduled_time, (datetime.datetime, datetime.date, firebase_admin.firestore.firestore.SERVER_TIMESTAMP.__class__)):
+            new_timestamp_value = scheduled_time
+        # Else, check if scheduled_date is a valid timestamp
+        elif scheduled_date is not None and isinstance(scheduled_date, (datetime.datetime, datetime.date, firebase_admin.firestore.firestore.SERVER_TIMESTAMP.__class__)):
+            new_timestamp_value = scheduled_date
+        
+        if new_timestamp_value is not None:
+            update_data = {
+                "appointmentTimestamp": new_timestamp_value,
+                "scheduledTime": firestore.DELETE_FIELD,
+                "scheduledDate": firestore.DELETE_FIELD
+            }
+            doc.reference.update(update_data)
+            migrated_count += 1
+            print(f"  Migrated document {doc.id}.")
+        else:
+            print(f"  Document {doc.id} has no suitable scheduledTime or scheduledDate field for migration.")
+
+    print(f"\nRepair migration complete. Processed {processed_count} documents, migrated {migrated_count} documents.")
+
 
 if __name__ == "__main__":
     main()
