@@ -211,49 +211,52 @@ class ProfileActivity : AppCompatActivity() {
             }
 
             try {
-                var imageSuccessfullyUploadedOrNotNeeded = true
-                var newImageUrlForUpdate: String? = null
+                var uploadedImageUrl: String? = null // Will store the URL of a newly uploaded image.
 
+                // Image Upload Handling
                 if (selectedImageUri != null) {
-                    val newImageUrl = FirebaseManager.uploadProfileImage(selectedImageUri!!)
-                    if (newImageUrl != null) {
-                        newImageUrlForUpdate = newImageUrl
-                        selectedImageUri = null
-                    } else {
-                        imageSuccessfullyUploadedOrNotNeeded = false
+                    val resultUrl = FirebaseManager.uploadProfileImage(selectedImageUri!!)
+                    if (resultUrl == null) {
                         Toast.makeText(this@ProfileActivity, "Profile image upload failed. Please try again.", Toast.LENGTH_LONG).show()
+                        profileSaveProgressBar.visibility = View.GONE
+                        saveProfileButton.isEnabled = true
+                        return@launch // Stop further processing
                     }
+                    uploadedImageUrl = resultUrl // Store the new image URL
+                    selectedImageUri = null // Clear URI after successful upload
                 }
 
+                // Consolidate Data for Update
                 val updatedData = mutableMapOf<String, Any>()
                 val newAddress = editTextAddress.text.toString().trim()
 
-                val nameChanged = originalUser?.fullName != newFullName
-                val phoneChanged = originalUser?.phone != newPhone 
-                val addressChanged = originalUser?.address != newAddress
+                // Populate updatedData with fullName, phone, and address only if they have changed
+                if (originalUser?.fullName != newFullName) {
+                    updatedData["fullName"] = newFullName
+                }
+                if (originalUser?.phone != newPhone) {
+                    updatedData["phone"] = newPhone
+                }
+                if (originalUser?.address != newAddress) {
+                    updatedData["address"] = newAddress
+                }
 
-                if (nameChanged) updatedData["fullName"] = newFullName
-                if (phoneChanged) updatedData["phone"] = newPhone
-                if (addressChanged) updatedData["address"] = newAddress
+                // If a new image was successfully uploaded, add its URL to updatedData
+                if (uploadedImageUrl != null) {
+                    updatedData["profileImageUrl"] = uploadedImageUrl
+                }
 
-                var textUpdateSucceeded = false
+                // Firestore Update Call
                 if (updatedData.isNotEmpty()) {
                     if (FirebaseManager.updateUserData(updatedData)) {
-                        textUpdateSucceeded = true
+                        Toast.makeText(this@ProfileActivity, "Profile saved successfully!", Toast.LENGTH_LONG).show()
+                        loadUserProfile() // Refresh data
                     } else {
                         Toast.makeText(this@ProfileActivity, "Failed to update profile details.", Toast.LENGTH_LONG).show()
                     }
-                } else if (newImageUrlForUpdate != null || !updatedData.isNotEmpty()) {
-                    textUpdateSucceeded = true
-                }
-
-                if (imageSuccessfullyUploadedOrNotNeeded && textUpdateSucceeded) {
-                    Toast.makeText(this@ProfileActivity, "Profile saved successfully!", Toast.LENGTH_LONG).show()
-                    loadUserProfile()
-                } else if (!imageSuccessfullyUploadedOrNotNeeded) {
-                    // Error for image upload already shown
-                } else if (updatedData.isNotEmpty() && !textUpdateSucceeded) {
-                    // Error for text update already shown
+                } else {
+                    // This means no text fields changed and no new image was uploaded.
+                    Toast.makeText(this@ProfileActivity, "No changes to save.", Toast.LENGTH_SHORT).show()
                 }
             } finally {
                 profileSaveProgressBar.visibility = View.GONE
