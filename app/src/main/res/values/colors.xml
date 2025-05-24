@@ -22,10 +22,14 @@
     <color name="purple_primary">#7C3AED</color>
     <color name="purple_light">#F5F3FF</color>
     <color name="green_check">#4ADE80</color>
+    <color name="icon_grey_color">#4B5563</color> <!-- Icon grey color for profile edit icon -->
+    <color name="destructive_red_fg">#D32F2F</color> <!-- For text and stroke -->
+    <color name="destructive_red_bg">#FFEBEE</color> <!-- For background fill -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="text_dark">#000000</color>
     <color name="text_grey">#555555</color>
     <color name="text_light_grey">#888888</color>
     <color name="star_yellow">#FFD700</color>
+    <color name="red_500">#F44336</color>
 </resources>

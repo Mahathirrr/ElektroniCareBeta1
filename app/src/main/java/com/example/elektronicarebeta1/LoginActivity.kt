@@ -132,6 +132,7 @@ class LoginActivity : AppCompatActivity() {
 
         signUpLink.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }
 
@@ -203,15 +204,15 @@ class LoginActivity : AppCompatActivity() {
             .addOnSuccessListener { authResult ->
                 val user = authResult.user
                 user?.let {
-                    val userData = hashMapOf(
-                        "fullName" to it.displayName,
-                        "email" to it.email,
+                    val userData: HashMap<String, Any> = hashMapOf(
+                        "fullName" to (it.displayName ?: ""), // Provide default if null
+                        "email" to (it.email ?: ""),       // Provide default if null
                         "mobile" to ""
                     )
 
                     db.collection("users")
                         .document(it.uid)
-                        .set(userData)
+                        .set(userData as Map<String, Any>)
                         .addOnSuccessListener {
                             Toast.makeText(this@LoginActivity, "Google sign-in successful", Toast.LENGTH_SHORT).show()
                             navigateToDashboard()
@@ -231,9 +232,15 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, DashboardActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         } catch (e: Exception) {
             Toast.makeText(this, "Error navigating to dashboard: ${e.message}", Toast.LENGTH_LONG).show()
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }

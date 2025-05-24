@@ -14,214 +14,223 @@
         android:layout_height="24dp"
         android:background="#7C3AED" />
 
-    <!-- Header with back button and title -->
-    <LinearLayout
-        android:id="@+id/header_container"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="#7C3AED"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingStart="16dp">
-
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_arrow_left_tiny"
-            android:tint="#FFFFFF"
-            android:contentDescription="Back button" />
-
-        <TextView
-            android:id="@+id/personal_information"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:text="Personal Information"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
-
-        <!-- Spacer to balance the back button -->
-        <View
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="16dp" />
-    </LinearLayout>
-
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <!-- Profile Avatar Section -->
-            <FrameLayout
+            <!-- Header with back button and title -->
+            <LinearLayout
+                android:id="@+id/header_container"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="#7C3AED"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
+
+                <ImageView
+                    android:id="@+id/btn_back"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow_left_tiny"
+                    app:tint="#FFFFFF"
+                    android:contentDescription="Back button" />
+
+                <TextView
+                    android:id="@+id/personal_information"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="Personal Information"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <!-- Spacer to balance the back button -->
+                <View
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="16dp" />
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp">
+                android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal">
+                <!-- Profile Avatar Section -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/avatar_circle"
-                        android:gravity="center">
+                    <RelativeLayout
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center_horizontal">
 
-                        <TextView
-                            android:id="@+id/tv_initials"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="AW"
-                            android:textColor="#7C3AED"
-                            android:textSize="24sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/avatar_circle"
+                            android:gravity="center">
 
-                    <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:padding="4dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:background="@drawable/circle_bg"
-                        android:src="@drawable/ic_camera"
-                        android:tint="#FFFFFF" />
-                </RelativeLayout>
-            </FrameLayout>
+                            <TextView
+                                android:id="@+id/tv_initials"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="AW"
+                                android:textColor="#7C3AED"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
 
-            <!-- Form Fields -->
-            <!-- Full Name -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="22dp"
-                android:layout_marginBottom="8dp"
-                android:text="Full Name"
-                android:textColor="#374151"
-                android:textSize="14sp" />
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:padding="4dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/circle_bg"
+                            android:src="@drawable/ic_camera"
+                            app:tint="#FFFFFF" />
+                    </RelativeLayout>
+                </FrameLayout>
 
-            <EditText
-                android:id="@+id/et_full_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="22dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/edit_text_background"
-                android:hint="Alex Wong"
-                android:inputType="textPersonName"
-                android:padding="12dp"
-                android:textSize="16sp" />
+                <!-- Form Fields -->
+                <!-- Full Name -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Full Name"
+                    android:textColor="#374151"
+                    android:textSize="14sp" />
 
-            <!-- Email -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="22dp"
-                android:layout_marginBottom="8dp"
-                android:text="Email"
-                android:textColor="#374151"
-                android:textSize="14sp" />
+                <EditText
+                    android:id="@+id/et_full_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="22dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/edit_text_background"
+                    android:hint="Alex Wong"
+                    android:inputType="textPersonName"
+                    android:padding="12dp"
+                    android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/et_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="22dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/edit_text_background"
-                android:hint="alex.wong@example.com"
-                android:inputType="textEmailAddress"
-                android:padding="12dp"
-                android:textSize="16sp" />
+                <!-- Email -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Email"
+                    android:textColor="#374151"
+                    android:textSize="14sp" />
 
-            <!-- Phone Number -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="22dp"
-                android:layout_marginBottom="8dp"
-                android:text="Phone Number"
-                android:textColor="#374151"
-                android:textSize="14sp" />
+                <EditText
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="22dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/edit_text_background"
+                    android:hint="alex.wong@example.com"
+                    android:inputType="textEmailAddress"
+                    android:padding="12dp"
+                    android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/et_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="22dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/edit_text_background"
-                android:hint="+62 812 3456 7890"
-                android:inputType="phone"
-                android:padding="12dp"
-                android:textSize="16sp" />
+                <!-- Phone Number -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Phone Number"
+                    android:textColor="#374151"
+                    android:textSize="14sp" />
 
-            <!-- Address -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="22dp"
-                android:layout_marginBottom="8dp"
-                android:text="Address"
-                android:textColor="#374151"
-                android:textSize="14sp" />
+                <EditText
+                    android:id="@+id/et_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="22dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/edit_text_background"
+                    android:hint="+62 812 3456 7890"
+                    android:inputType="phone"
+                    android:padding="12dp"
+                    android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/et_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="22dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/edit_text_background"
-                android:hint="123 Main Street"
-                android:inputType="textPostalAddress"
-                android:padding="12dp"
-                android:textSize="16sp" />
+                <!-- Address -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Address"
+                    android:textColor="#374151"
+                    android:textSize="14sp" />
 
-            <!-- City -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="22dp"
-                android:layout_marginBottom="8dp"
-                android:text="City"
-                android:textColor="#374151"
-                android:textSize="14sp" />
+                <EditText
+                    android:id="@+id/et_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="22dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/edit_text_background"
+                    android:hint="123 Main Street"
+                    android:inputType="textPostalAddress"
+                    android:padding="12dp"
+                    android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/et_city"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="22dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/edit_text_background"
-                android:hint="Jakarta"
-                android:inputType="text"
-                android:padding="12dp"
-                android:textSize="16sp" />
+                <!-- City -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="City"
+                    android:textColor="#374151"
+                    android:textSize="14sp" />
 
-            <!-- Save Button -->
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_save"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="22dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/button_background_purple"
-                android:paddingVertical="14dp"
-                android:text="Save Changes"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp" />
-        </LinearLayout>
-    </ScrollView>
+                <EditText
+                    android:id="@+id/et_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="22dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/edit_text_background"
+                    android:hint="Jakarta"
+                    android:inputType="text"
+                    android:padding="12dp"
+                    android:textSize="16sp" />
+
+                <!-- Save Button -->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_save"
+                    style="@style/AppTheme.Button.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="22dp"
+                    android:layout_marginBottom="24dp"
+                    android:text="Save Changes" />
+            </LinearLayout>
+        </ScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>
